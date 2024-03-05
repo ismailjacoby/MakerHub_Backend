@@ -16,15 +16,18 @@ import java.util.List;
 @Table(name = "User_")
 @Getter @Setter
 public class UserEntity implements UserDetails {
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
-
+    @Column(unique = true, nullable = false)
     private String username;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
+    @Column(unique = true, nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
     private boolean active;
     private boolean blocked;
