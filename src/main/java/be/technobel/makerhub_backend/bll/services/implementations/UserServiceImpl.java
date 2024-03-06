@@ -1,5 +1,6 @@
 package be.technobel.makerhub_backend.bll.services.implementations;
 
+import be.technobel.makerhub_backend.bll.exceptions.DuplicateUserException;
 import be.technobel.makerhub_backend.bll.services.UserService;
 import be.technobel.makerhub_backend.dal.models.entities.NewsletterEmail;
 import be.technobel.makerhub_backend.dal.models.entities.UserEntity;
@@ -51,6 +52,14 @@ public class UserServiceImpl implements UserService {
     public void signUp(UserForm form) {
         if(form == null){
             throw new IllegalArgumentException("Form can't be null.");
+        }
+
+        if(userRepository.existsByEmail(form.getEmail())){
+            throw new DuplicateUserException("Email already exists.");
+        }
+
+        if(userRepository.existsByUsername(form.getUsername())){
+            throw new DuplicateUserException("Username is already taken.");
         }
 
         //Register new user
