@@ -34,6 +34,10 @@ public class UserEntity implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     private UserRole role = UserRole.CLIENT;
 
+    public void updatePassword(String newPassword){
+        this.password = newPassword;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("Role_"+role.name()));

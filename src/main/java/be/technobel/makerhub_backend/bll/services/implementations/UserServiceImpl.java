@@ -14,10 +14,13 @@ import be.technobel.makerhub_backend.pl.models.dtos.AuthDto;
 import be.technobel.makerhub_backend.pl.models.forms.LoginForm;
 import be.technobel.makerhub_backend.pl.models.forms.NewsletterSubscriptionForm;
 import be.technobel.makerhub_backend.pl.models.forms.UserForm;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -90,10 +93,23 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Form can't be null.");
         }
 
-        if(userRepository.existsByEmail(form.getEmail())){
-            emailSenderService.forgotPasswordEmail(form.getEmail());
+        String email = form.getEmail();
+
+        Optional<UserEntity> userOptional = userRepository.findByEmail(email);
+        if(userOptional.isPresent()){
+            UserEntity user = userOptional.get();
+            String username = user.getUsername();
+            String password = generateRandomPassword();
+            user.setPassword(passwordEncoder.encode(password));
+            userRepository.save(user);
+
+            emailSenderService.forgotPasswordEmail(email, username, password);
         } else{
             throw new NotFoundException("Email not found.");
         }
+    }
+
+    private String generateRandomPassword(){
+        return RandomStringUtils.randomAlphanumeric(10);
     }
 }

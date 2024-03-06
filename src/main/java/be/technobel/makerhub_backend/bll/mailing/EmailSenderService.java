@@ -24,16 +24,18 @@ public class EmailSenderService {
         this.userRepository = userRepository;
     }
 
-    public void forgotPasswordEmail(String email) {
+    public void forgotPasswordEmail(String email, String username, String password) {
         String subject = "Hybridvision - Forgot Password";
-        String body = processForgotPasswordTemplate(email);
+        String body = processForgotPasswordTemplate(email, username, password);
 
         sendEmail(email, subject, body);
     }
 
-    private String processForgotPasswordTemplate(String email){
+    private String processForgotPasswordTemplate(String email, String username, String password){
         Context context = new Context();
         context.setVariable("email", email);
+        context.setVariable("username", username);
+        context.setVariable("password", password);
 
         return templateEngine.process("account/forgotPassword",context);
     }
