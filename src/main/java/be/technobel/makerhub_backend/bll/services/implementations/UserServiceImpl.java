@@ -55,18 +55,18 @@ public class UserServiceImpl implements UserService {
 
         //Register new user
         UserEntity client = new UserEntity();
-        client.setUsername(form.username());
-        client.setFirstName(form.firstName());
-        client.setLastName(form.lastName());
-        client.setEmail(form.email());
-        client.setPassword(passwordEncoder.encode(form.password()));
+        client.setUsername(form.getUsername());
+        client.setFirstName(form.getFirstName());
+        client.setLastName(form.getLastName());
+        client.setEmail(form.getEmail());
+        client.setPassword(passwordEncoder.encode(form.getPassword()));
         client.setActive(true);
         client.setBlocked(false);
         userRepository.save(client);
 
         //Automatically adds the new user to a newsletter
         NewsletterEmail newsletterEmail = new NewsletterEmail();
-        newsletterEmail.setEmail(form.email());
+        newsletterEmail.setEmail(form.getEmail());
         newsletterEmailRepository.save(newsletterEmail);
     }
 }

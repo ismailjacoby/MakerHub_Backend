@@ -2,6 +2,7 @@ package be.technobel.makerhub_backend.pl.controllers;
 
 import be.technobel.makerhub_backend.bll.services.NewsletterEmailService;
 import be.technobel.makerhub_backend.pl.models.forms.NewsletterSubscriptionForm;
+import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,12 +21,12 @@ public class NewsletterEmailController {
 
     @PreAuthorize("isAnonymous()")
     @PostMapping("/subscribe")
-    public void subscribeToNewsletter(@RequestBody NewsletterSubscriptionForm form){
+    public void subscribeToNewsletter(@RequestBody @Valid NewsletterSubscriptionForm form){
         newsletterEmailService.subscribeToNewsletter(form);
     }
 
     @PostMapping("/unsubscribe")
-    public void unsubscribeFromNewsletter(@RequestBody NewsletterSubscriptionForm form){
+    public void unsubscribeFromNewsletter(@RequestBody @Valid NewsletterSubscriptionForm form){
         newsletterEmailService.unsubscribeFromNewsletter(form);
     }
 }

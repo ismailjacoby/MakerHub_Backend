@@ -22,7 +22,7 @@ public class NewsletterEmailServiceImpl implements NewsletterEmailService {
         }
 
         NewsletterEmail newsletterEmail = new NewsletterEmail();
-        newsletterEmail.setEmail(form.email());
+        newsletterEmail.setEmail(form.getEmail());
         newsletterEmailRepository.save(newsletterEmail);
     }
 
@@ -32,7 +32,7 @@ public class NewsletterEmailServiceImpl implements NewsletterEmailService {
             throw new IllegalArgumentException("Form can't be null");
         }
 
-        NewsletterEmail user = newsletterEmailRepository.findByEmail(form.email()).orElseThrow(()-> new EntityNotFoundException("Email not found."));
+        NewsletterEmail user = newsletterEmailRepository.findByEmail(form.getEmail()).orElseThrow(()-> new EntityNotFoundException("Email not found."));
         user.setSubscribed(false);
         newsletterEmailRepository.save(user);
     }
