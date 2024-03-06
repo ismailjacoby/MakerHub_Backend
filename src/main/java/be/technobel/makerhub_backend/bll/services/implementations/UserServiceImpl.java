@@ -1,6 +1,8 @@
 package be.technobel.makerhub_backend.bll.services.implementations;
 
 import be.technobel.makerhub_backend.bll.exceptions.DuplicateUserException;
+import be.technobel.makerhub_backend.bll.exceptions.NotFoundException;
+import be.technobel.makerhub_backend.bll.mailing.EmailSenderService;
 import be.technobel.makerhub_backend.bll.services.UserService;
 import be.technobel.makerhub_backend.dal.models.entities.NewsletterEmail;
 import be.technobel.makerhub_backend.dal.models.entities.UserEntity;
@@ -10,6 +12,7 @@ import be.technobel.makerhub_backend.dal.repositories.UserRepository;
 import be.technobel.makerhub_backend.pl.config.security.JWTProvider;
 import be.technobel.makerhub_backend.pl.models.dtos.AuthDto;
 import be.technobel.makerhub_backend.pl.models.forms.LoginForm;
+import be.technobel.makerhub_backend.pl.models.forms.NewsletterSubscriptionForm;
 import be.technobel.makerhub_backend.pl.models.forms.UserForm;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,15 +26,17 @@ public class UserServiceImpl implements UserService {
     private final JWTProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
     private final NewsletterEmailRepository newsletterEmailRepository;
+    private final EmailSenderService emailSenderService;
 
     public UserServiceImpl(AuthenticationManager authenticationManager,
                            UserRepository userRepository,
-                           JWTProvider jwtProvider, PasswordEncoder passwordEncoder, NewsletterEmailRepository newsletterEmailRepository) {
+                           JWTProvider jwtProvider, PasswordEncoder passwordEncoder, NewsletterEmailRepository newsletterEmailRepository, EmailSenderService emailSenderService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.jwtProvider = jwtProvider;
         this.passwordEncoder = passwordEncoder;
         this.newsletterEmailRepository = newsletterEmailRepository;
+        this.emailSenderService = emailSenderService;
     }
 
 
@@ -77,5 +82,18 @@ public class UserServiceImpl implements UserService {
         NewsletterEmail newsletterEmail = new NewsletterEmail();
         newsletterEmail.setEmail(form.getEmail());
         newsletterEmailRepository.save(newsletterEmail);
+    }
+
+    @Override
+    public void forgotPassword(NewsletterSubscriptionForm form) {
+        if(form == null){
+            throw new IllegalArgumentException("Form can't be null.");
+        }
+
+        if(userRepository.existsByEmail(form.getEmail())){
+            emailSenderService.forgotPasswordEmail(form.getEmail());
+        } else{
+            throw new NotFoundException("Email not found.");
+        }
     }
 }

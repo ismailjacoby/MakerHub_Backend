@@ -3,6 +3,7 @@ package be.technobel.makerhub_backend.pl.controllers;
 import be.technobel.makerhub_backend.bll.services.UserService;
 import be.technobel.makerhub_backend.pl.models.dtos.AuthDto;
 import be.technobel.makerhub_backend.pl.models.forms.LoginForm;
+import be.technobel.makerhub_backend.pl.models.forms.NewsletterSubscriptionForm;
 import be.technobel.makerhub_backend.pl.models.forms.UserForm;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -30,5 +31,11 @@ public class UserController {
     @PostMapping("/signup")
     public void signUp(@RequestBody @Valid UserForm form){
         userService.signUp(form);
+    }
+
+    @PreAuthorize("permitAll()")
+    @PostMapping("/forgotpassword")
+    public void forgotPassword(@RequestBody @Valid NewsletterSubscriptionForm form) {
+        userService.forgotPassword(form);
     }
 }
