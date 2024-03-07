@@ -1,15 +1,22 @@
 package be.technobel.makerhub_backend.pl.controllers;
 
+import be.technobel.makerhub_backend.bll.exceptions.NotFoundException;
 import be.technobel.makerhub_backend.bll.services.UserService;
+import be.technobel.makerhub_backend.dal.models.entities.UserEntity;
 import be.technobel.makerhub_backend.pl.models.dtos.AuthDto;
+import be.technobel.makerhub_backend.pl.models.dtos.UserDto;
 import be.technobel.makerhub_backend.pl.models.forms.LoginForm;
 import be.technobel.makerhub_backend.pl.models.forms.NewsletterSubscriptionForm;
+import be.technobel.makerhub_backend.pl.models.forms.UpdateUserForm;
 import be.technobel.makerhub_backend.pl.models.forms.UserForm;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/account")
@@ -37,5 +44,26 @@ public class UserController {
     @PostMapping("/forgotpassword")
     public void forgotPassword(@RequestBody @Valid NewsletterSubscriptionForm form) {
         userService.forgotPassword(form);
+    }
+
+    @PostMapping("/editaccount")
+    public void editAccount(@RequestBody @Valid UpdateUserForm form){
+        userService.editAccount(form);
+    }
+
+    @GetMapping("/user/{username}")
+    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username){
+        return ResponseEntity.ok(UserDto.fromDto(
+                userService.getUserByUsername(username)
+                        .orElseThrow(()-> new NotFoundException("User not found."))));
+    }
+
+    @PatchMapping("/deactivate/{username}")
+    public void deactivateAccount(@PathVariable String username) {
+        userService.deactivateAccount(username);
+    }
+    @PatchMapping("/block/{username}")
+    public void blockAccount(@PathVariable String username) {
+        userService.blockAccount(username);
     }
 }

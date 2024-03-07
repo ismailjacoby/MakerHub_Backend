@@ -1,18 +1,20 @@
 package be.technobel.makerhub_backend.bll.services.implementations;
 
+import be.technobel.makerhub_backend.bll.exceptions.AccountBlockedException;
+import be.technobel.makerhub_backend.bll.exceptions.AccountWasDeactivatedException;
 import be.technobel.makerhub_backend.bll.exceptions.DuplicateUserException;
 import be.technobel.makerhub_backend.bll.exceptions.NotFoundException;
 import be.technobel.makerhub_backend.bll.mailing.EmailSenderService;
 import be.technobel.makerhub_backend.bll.services.UserService;
 import be.technobel.makerhub_backend.dal.models.entities.NewsletterEmail;
 import be.technobel.makerhub_backend.dal.models.entities.UserEntity;
-import be.technobel.makerhub_backend.dal.models.enums.UserRole;
 import be.technobel.makerhub_backend.dal.repositories.NewsletterEmailRepository;
 import be.technobel.makerhub_backend.dal.repositories.UserRepository;
 import be.technobel.makerhub_backend.pl.config.security.JWTProvider;
 import be.technobel.makerhub_backend.pl.models.dtos.AuthDto;
 import be.technobel.makerhub_backend.pl.models.forms.LoginForm;
 import be.technobel.makerhub_backend.pl.models.forms.NewsletterSubscriptionForm;
+import be.technobel.makerhub_backend.pl.models.forms.UpdateUserForm;
 import be.technobel.makerhub_backend.pl.models.forms.UserForm;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -48,6 +50,14 @@ public class UserServiceImpl implements UserService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(form.getUsername(),form.getPassword()));
         UserEntity user = userRepository.findByUsername(form.getUsername()).get();
         String token = jwtProvider.generateToken(user.getUsername(), user.getRole());
+
+        if(!user.isActive()){
+            throw new AccountWasDeactivatedException("Account is inactive. Please contact support to get your account back.");
+        }
+
+        if(user.isBlocked()){
+            throw new AccountBlockedException("Your account was blocked. Please contact support for more informations.");
+        }
 
         return AuthDto.builder()
                 .token(token)
@@ -108,6 +118,58 @@ public class UserServiceImpl implements UserService {
             throw new NotFoundException("Email not found.");
         }
     }
+
+    @Override
+    public Optional<UserEntity> editAccount(UpdateUserForm form) {
+        if (form == null) {
+            throw new IllegalArgumentException("Form can't be null.");
+        }
+
+        String username = form.getUsername();
+        Optional<UserEntity> userOptional = userRepository.findByUsername(username);
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+            user.setUsername(form.getUsername());
+            user.setFirstName(form.getFirstName());
+            user.setLastName(form.getLastName());
+            user.setEmail(form.getEmail());
+            userRepository.save(user);
+            return Optional.of(user);
+        } else {
+            throw new NotFoundException("User not found.");
+        }
+    }
+
+    @Override
+    public Optional<UserEntity> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public void deactivateAccount(String username) {
+        Optional<UserEntity> userOptional = userRepository.findByUsername(username);
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+            user.setActive(false);
+            userRepository.save(user);
+        } else {
+            throw new NotFoundException("User not found.");
+        }
+    }
+
+    @Override
+    public void blockAccount(String username) {
+        Optional<UserEntity> userOptional = userRepository.findByUsername(username);
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+            user.setBlocked(true);
+            userRepository.save(user);
+        } else {
+            throw new NotFoundException("User not found.");
+        }
+    }
+
+    //Methods
 
     private String generateRandomPassword(){
         return RandomStringUtils.randomAlphanumeric(10);
