@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class NewsletterSubscriptionForm {
+public class EmailForm {
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
     private String email;

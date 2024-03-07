@@ -13,7 +13,7 @@ import be.technobel.makerhub_backend.dal.repositories.UserRepository;
 import be.technobel.makerhub_backend.pl.config.security.JWTProvider;
 import be.technobel.makerhub_backend.pl.models.dtos.AuthDto;
 import be.technobel.makerhub_backend.pl.models.forms.LoginForm;
-import be.technobel.makerhub_backend.pl.models.forms.NewsletterSubscriptionForm;
+import be.technobel.makerhub_backend.pl.models.forms.EmailForm;
 import be.technobel.makerhub_backend.pl.models.forms.UpdateUserForm;
 import be.technobel.makerhub_backend.pl.models.forms.UserForm;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void forgotPassword(NewsletterSubscriptionForm form) {
+    public void forgotPassword(EmailForm form) {
         if(form == null){
             throw new IllegalArgumentException("Form can't be null.");
         }

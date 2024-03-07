@@ -1,6 +1,7 @@
 package be.technobel.makerhub_backend.bll.mailing;
 
 import be.technobel.makerhub_backend.dal.repositories.UserRepository;
+import be.technobel.makerhub_backend.pl.models.forms.ContactForm;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,25 @@ public class EmailSenderService {
 
     public EmailSenderService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public void sendContactMessage(ContactForm form){
+        try{
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom(form.getEmail());
+            helper.setTo("ismail.jacoby@gmail.com");
+            helper.setSubject("Contact Form Submission: " + form.getSubject());
+
+            String content = "Message from: " + form.getFirstName() + " " + form.getLastName() +
+                    " (" + form.getEmail() + ")\n\n" + form.getMessage();
+
+            mailSender.send(message);
+            System.out.println("Mail sent successfully");
+        }catch (MessagingException exception){
+            exception.printStackTrace();
+            System.out.println("Error sending email");
+        }
     }
 
     public void forgotPasswordEmail(String email, String username, String password) {

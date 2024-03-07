@@ -3,7 +3,7 @@ package be.technobel.makerhub_backend.bll.services.implementations;
 import be.technobel.makerhub_backend.bll.services.NewsletterEmailService;
 import be.technobel.makerhub_backend.dal.models.entities.NewsletterEmail;
 import be.technobel.makerhub_backend.dal.repositories.NewsletterEmailRepository;
-import be.technobel.makerhub_backend.pl.models.forms.NewsletterSubscriptionForm;
+import be.technobel.makerhub_backend.pl.models.forms.EmailForm;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class NewsletterEmailServiceImpl implements NewsletterEmailService {
     }
 
     @Override
-    public void subscribeToNewsletter(NewsletterSubscriptionForm form) {
+    public void subscribeToNewsletter(EmailForm form) {
         if(form == null){
             throw new IllegalArgumentException("Form can't be null");
         }
@@ -27,7 +27,7 @@ public class NewsletterEmailServiceImpl implements NewsletterEmailService {
     }
 
     @Override
-    public void unsubscribeFromNewsletter(NewsletterSubscriptionForm form) {
+    public void unsubscribeFromNewsletter(EmailForm form) {
         if (form==null){
             throw new IllegalArgumentException("Form can't be null");
         }
