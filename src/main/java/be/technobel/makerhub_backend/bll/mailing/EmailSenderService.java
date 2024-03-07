@@ -29,7 +29,9 @@ public class EmailSenderService {
         try{
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(form.getEmail());
+            helper.setFrom("your-verified-email@example.com");
+            helper.setReplyTo(form.getEmail());
+
             helper.setTo("ismail.jacoby@gmail.com");
             helper.setSubject("Contact Form Submission: " + form.getSubject());
 
