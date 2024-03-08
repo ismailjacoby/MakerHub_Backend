@@ -150,7 +150,12 @@ public class UserServiceImpl implements UserService {
         Optional<UserEntity> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
             UserEntity user = userOptional.get();
-            user.setActive(false);
+            if(user.isActive()){
+                user.setActive(false);
+            } else {
+                user.setActive(true);
+            }
+
             userRepository.save(user);
         } else {
             throw new NotFoundException("User not found.");
@@ -162,7 +167,12 @@ public class UserServiceImpl implements UserService {
         Optional<UserEntity> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
             UserEntity user = userOptional.get();
-            user.setBlocked(true);
+            if(!user.isBlocked()){
+                user.setBlocked(true);
+            } else{
+                user.setBlocked(false);
+            }
+
             userRepository.save(user);
         } else {
             throw new NotFoundException("User not found.");
