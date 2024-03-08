@@ -8,6 +8,7 @@ import be.technobel.makerhub_backend.bll.mailing.EmailSenderService;
 import be.technobel.makerhub_backend.bll.services.UserService;
 import be.technobel.makerhub_backend.dal.models.entities.NewsletterEmail;
 import be.technobel.makerhub_backend.dal.models.entities.UserEntity;
+import be.technobel.makerhub_backend.dal.models.enums.UserRole;
 import be.technobel.makerhub_backend.dal.repositories.NewsletterEmailRepository;
 import be.technobel.makerhub_backend.dal.repositories.UserRepository;
 import be.technobel.makerhub_backend.pl.config.security.JWTProvider;
@@ -22,6 +23,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -177,6 +179,11 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new NotFoundException("User not found.");
         }
+    }
+
+    @Override
+    public List<UserEntity> getAllClients() {
+        return userRepository.findByRole(UserRole.CLIENT);
     }
 
     //Methods

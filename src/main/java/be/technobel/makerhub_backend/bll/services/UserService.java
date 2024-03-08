@@ -7,6 +7,7 @@ import be.technobel.makerhub_backend.pl.models.forms.EmailForm;
 import be.technobel.makerhub_backend.pl.models.forms.UpdateUserForm;
 import be.technobel.makerhub_backend.pl.models.forms.UserForm;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -17,4 +18,5 @@ public interface UserService {
     Optional<UserEntity> getUserByUsername(String username);
     void deactivateAccount(String username);
     void blockAccount(String username);
+    List<UserEntity> getAllClients();
 }

@@ -4,6 +4,7 @@ import be.technobel.makerhub_backend.bll.exceptions.NotFoundException;
 import be.technobel.makerhub_backend.bll.services.UserService;
 import be.technobel.makerhub_backend.pl.models.dtos.AuthDto;
 import be.technobel.makerhub_backend.pl.models.dtos.UserDto;
+import be.technobel.makerhub_backend.pl.models.dtos.UserFullDto;
 import be.technobel.makerhub_backend.pl.models.forms.LoginForm;
 import be.technobel.makerhub_backend.pl.models.forms.EmailForm;
 import be.technobel.makerhub_backend.pl.models.forms.UpdateUserForm;
@@ -12,6 +13,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/account")
@@ -60,5 +64,14 @@ public class UserController {
     @PatchMapping("/block/{username}")
     public void blockAccount(@PathVariable String username) {
         userService.blockAccount(username);
+    }
+
+    @GetMapping("clients/all")
+    public ResponseEntity<List<UserFullDto>> getAllClients(){
+        List<UserFullDto> clients = userService.getAllClients()
+                .stream()
+                .map(UserFullDto::fromDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(clients);
     }
 }

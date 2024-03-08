@@ -7,16 +7,14 @@ public record UserDto(
         String username,
         String firstName,
         String lastName,
-        String email,
-        String password
+        String email
 ) {
     public static UserDto fromDto(UserEntity user){
         return new UserDto(
                 user.getUsername(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getEmail(),
-                user.getPassword()
+                user.getEmail()
         );
     }
 }
