@@ -51,8 +51,8 @@ public class UserController {
     }
 
     @GetMapping("/user/{username}")
-    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username){
-        return ResponseEntity.ok(UserDto.fromDto(
+    public ResponseEntity<UserFullDto> getUserByUsername(@PathVariable String username){
+        return ResponseEntity.ok(UserFullDto.fromDto(
                 userService.getUserByUsername(username)
                         .orElseThrow(()-> new NotFoundException("User not found."))));
     }
