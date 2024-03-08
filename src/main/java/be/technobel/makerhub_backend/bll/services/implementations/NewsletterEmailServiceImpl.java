@@ -7,6 +7,10 @@ import be.technobel.makerhub_backend.pl.models.forms.EmailForm;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service implementation for managing newsletter subscriptions.
+ * Provides functionality to subscribe and unsubscribe from the newsletter.
+ */
 @Service
 public class NewsletterEmailServiceImpl implements NewsletterEmailService {
     private final NewsletterEmailRepository newsletterEmailRepository;
@@ -15,6 +19,11 @@ public class NewsletterEmailServiceImpl implements NewsletterEmailService {
         this.newsletterEmailRepository = newsletterEmailRepository;
     }
 
+    /**
+     * Subscribes a user to the newsletter using email provided in the form.
+     * @param form Contains the email address for subscription.
+     * @throws IllegalArgumentException if the form is null.
+     */
     @Override
     public void subscribeToNewsletter(EmailForm form) {
         if(form == null){
@@ -26,6 +35,12 @@ public class NewsletterEmailServiceImpl implements NewsletterEmailService {
         newsletterEmailRepository.save(newsletterEmail);
     }
 
+    /**
+     * Unsubscribes a user from the newsletter using email provided in the form.
+     * @param form Contains the email address for unsubscription.
+     * @throws IllegalArgumentException if the form is null.
+     * @throws EntityNotFoundException if the email is not found in the repository.
+     */
     @Override
     public void unsubscribeFromNewsletter(EmailForm form) {
         if (form==null){

@@ -19,12 +19,20 @@ public class NewsletterEmailController {
         this.newsletterEmailService = newsletterEmailService;
     }
 
+    /**
+     * Subscribes a user to the newsletter.
+     * @param form Contains the user's email for subscription.
+     */
     @PreAuthorize("isAnonymous()")
     @PostMapping("/subscribe")
     public void subscribeToNewsletter(@RequestBody @Valid EmailForm form){
         newsletterEmailService.subscribeToNewsletter(form);
     }
 
+    /**
+     * Removes a user's email from the newsletter subscription.
+     * @param form Contains the user's email for unsubscription.
+     */
     @PostMapping("/unsubscribe")
     public void unsubscribeFromNewsletter(@RequestBody @Valid EmailForm form){
         newsletterEmailService.unsubscribeFromNewsletter(form);

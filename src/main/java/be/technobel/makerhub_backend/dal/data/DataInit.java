@@ -17,6 +17,9 @@ public class DataInit implements InitializingBean {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /*
+    * Creates a custom dummy database to test out different methods.
+    * */
     @Override
     public void afterPropertiesSet() throws Exception {
         //ADMIN - Main

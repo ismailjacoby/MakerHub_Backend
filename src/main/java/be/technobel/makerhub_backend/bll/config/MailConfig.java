@@ -8,6 +8,9 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
+/**
+ * Configures email service properties and initializes JavaMailSender for SMTP email sending.
+ */
 @Configuration
 public class MailConfig {
 
@@ -23,6 +26,10 @@ public class MailConfig {
     @Value("${spring.mail.password}")
     private String password;
 
+    /**
+     * Creates JavaMailSenderImpl with SMTP settings from application properties.
+     * @return Configured JavaMailSender for email sending.
+     */
     @Bean
     public JavaMailSender javaMailSender(){
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -32,11 +39,8 @@ public class MailConfig {
         mailSender.setPassword(password);
 
         Properties props = mailSender.getJavaMailProperties();
-
         props.put("mail.transport.protocol", "smtp");
-
         props.put("mail.smtp.auth", "true");
-
         props.put("mail.smtp.starttls.enable", "true");
 
         return mailSender;

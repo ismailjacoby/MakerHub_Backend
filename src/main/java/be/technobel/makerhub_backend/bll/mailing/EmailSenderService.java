@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+/**
+ * Service for sending emails.
+ */
 @Service
 public class EmailSenderService {
     @Autowired
@@ -25,6 +28,11 @@ public class EmailSenderService {
         this.userRepository = userRepository;
     }
 
+
+    /**
+     * Sends a contact message email with form details.
+     * @param form The contact form submitted by a user.
+     */
     public void sendContactMessage(ContactForm form){
         try{
             MimeMessage message = mailSender.createMimeMessage();
@@ -46,6 +54,13 @@ public class EmailSenderService {
         }
     }
 
+
+    /**
+     * Sends a forgot password email to a user.
+     * @param email User's email address.
+     * @param username User's username.
+     * @param password User's password.
+     */
     public void forgotPasswordEmail(String email, String username, String password) {
         String subject = "Hybridvision - Forgot Password";
         String body = processForgotPasswordTemplate(email, username, password);
@@ -53,6 +68,13 @@ public class EmailSenderService {
         sendEmail(email, subject, body);
     }
 
+    /**
+     * Processes the Thymeleaf template for forgot password emails.
+     * @param email User's email.
+     * @param username User's username.
+     * @param password User's password.
+     * @return Processed email body as a String.
+     */
     private String processForgotPasswordTemplate(String email, String username, String password){
         Context context = new Context();
         context.setVariable("email", email);
@@ -62,6 +84,12 @@ public class EmailSenderService {
         return templateEngine.process("account/forgotPassword",context);
     }
 
+    /**
+     * Generic method for sending emails.
+     * @param email Recipient email address.
+     * @param subject Email subject.
+     * @param body Email body (HTML supported).
+     */
     public void sendEmail(String email, String subject, String body){
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper;

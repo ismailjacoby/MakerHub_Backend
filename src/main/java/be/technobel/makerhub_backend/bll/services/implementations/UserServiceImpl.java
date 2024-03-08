@@ -26,6 +26,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service implementation for user-related operations such as login, sign-up, password management, and user modification.
+ */
 @Service
 public class UserServiceImpl implements UserService {
     private final AuthenticationManager authenticationManager;
@@ -46,21 +49,29 @@ public class UserServiceImpl implements UserService {
         this.emailSenderService = emailSenderService;
     }
 
-
+    /**
+     * Authenticates a user and generates a JWT token if successful. Throws exceptions if the account is inactive or blocked.
+     */
     @Override
     public AuthDto login(LoginForm form) {
+        // Authenticates the user with username and password.
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(form.getUsername(),form.getPassword()));
+        // Retrieves the user entity based on username.
         UserEntity user = userRepository.findByUsername(form.getUsername()).get();
+        // Generates JWT token for the authenticated user.
         String token = jwtProvider.generateToken(user.getUsername(), user.getRole());
 
+        // Checks if the user account is active.
         if(!user.isActive()){
             throw new AccountWasDeactivatedException("Account is inactive. Please contact support to get your account back.");
         }
 
+        // Checks if the user account is blocked.
         if(user.isBlocked()){
             throw new AccountBlockedException("Your account was blocked. Please contact support for more informations.");
         }
 
+        // Constructs and returns an AuthDto with user details and JWT token.
         return AuthDto.builder()
                 .token(token)
                 .username(user.getUsername())
@@ -68,21 +79,28 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+    /**
+     * Registers a new user with the provided details from UserForm.
+     * Ensures email and username uniqueness and automatically subscribes the user to the newsletter.
+     */
     @Override
     public void signUp(UserForm form) {
+        // Validates the form is not null.
         if(form == null){
             throw new IllegalArgumentException("Form can't be null.");
         }
 
+        // Checks for email uniqueness.
         if(userRepository.existsByEmail(form.getEmail())){
             throw new DuplicateUserException("Email already exists.");
         }
 
+        // Checks for username uniqueness.
         if(userRepository.existsByUsername(form.getUsername())){
             throw new DuplicateUserException("Username is already taken.");
         }
 
-        //Register new user
+        // Creates and saves a new user.
         UserEntity client = new UserEntity();
         client.setUsername(form.getUsername());
         client.setFirstName(form.getFirstName());
@@ -93,42 +111,56 @@ public class UserServiceImpl implements UserService {
         client.setBlocked(false);
         userRepository.save(client);
 
-        //Automatically adds the new user to a newsletter
+        // Automatically subscribes the new user to the newsletter.
         NewsletterEmail newsletterEmail = new NewsletterEmail();
         newsletterEmail.setEmail(form.getEmail());
         newsletterEmailRepository.save(newsletterEmail);
     }
 
+    /**
+     * Handles password reset requests.
+     * Generates a new password, updates the user's record, and sends the new password via email.
+     * Throws NotFoundException if the email is not found.
+     */
     @Override
     public void forgotPassword(EmailForm form) {
+        // Validates the form is not null.
         if(form == null){
             throw new IllegalArgumentException("Form can't be null.");
         }
 
+        // Checks for email uniqueness.
         String email = form.getEmail();
-
         Optional<UserEntity> userOptional = userRepository.findByEmail(email);
         if(userOptional.isPresent()){
             UserEntity user = userOptional.get();
             String username = user.getUsername();
-            String password = generateRandomPassword();
+            String password = generateRandomPassword(); // Generates a new random password.
             user.setPassword(passwordEncoder.encode(password));
             userRepository.save(user);
 
-            emailSenderService.forgotPasswordEmail(email, username, password);
+            emailSenderService.forgotPasswordEmail(email, username, password); // Sends the new password via email.
         } else{
             throw new NotFoundException("Email not found.");
         }
     }
 
+    /**
+     * Updates user account details based on provided UpdateUserForm.
+     * Returns updated user entity or throws NotFoundException if user is not found.
+     */
     @Override
     public Optional<UserEntity> editAccount(UpdateUserForm form) {
+        // Checks if the form is null
         if (form == null) {
             throw new IllegalArgumentException("Form can't be null.");
         }
 
+        // Attempts to find the user by the username provided in the form.
         String username = form.getUsername();
         Optional<UserEntity> userOptional = userRepository.findByUsername(username);
+
+        // If the user is found, updates their details.
         if (userOptional.isPresent()) {
             UserEntity user = userOptional.get();
             user.setUsername(form.getUsername());
@@ -142,14 +174,25 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Retrieves a user by their username.
+     * Returns an Optional containing the UserEntity or empty if not found.
+     */
     @Override
     public Optional<UserEntity> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
+    /**
+     * Deactivates or reactivates a user account based on the current status.
+     * Throws NotFoundException if the user is not found.
+     */
     @Override
     public void deactivateAccount(String username) {
+        // Attempts to find the user by username.
         Optional<UserEntity> userOptional = userRepository.findByUsername(username);
+
+        // Checks if user is found and toggles their active status.
         if (userOptional.isPresent()) {
             UserEntity user = userOptional.get();
             if(user.isActive()){
@@ -157,16 +200,22 @@ public class UserServiceImpl implements UserService {
             } else {
                 user.setActive(true);
             }
-
             userRepository.save(user);
         } else {
             throw new NotFoundException("User not found.");
         }
     }
 
+    /**
+     * Blocks or unblocks a user account based on the current status.
+     * Throws NotFoundException if the user is not found.
+     */
     @Override
     public void blockAccount(String username) {
+        // Attempts to find the user by username.
         Optional<UserEntity> userOptional = userRepository.findByUsername(username);
+
+        // Checks if user is found and toggles their active status.
         if (userOptional.isPresent()) {
             UserEntity user = userOptional.get();
             if(!user.isBlocked()){
@@ -174,20 +223,23 @@ public class UserServiceImpl implements UserService {
             } else{
                 user.setBlocked(false);
             }
-
             userRepository.save(user);
         } else {
             throw new NotFoundException("User not found.");
         }
     }
 
+    /**
+     * Retrieves all users with the CLIENT role.
+     */
     @Override
     public List<UserEntity> getAllClients() {
         return userRepository.findByRole(UserRole.CLIENT);
     }
 
-    //Methods
-
+    /**
+     * Generates a random alphanumeric string to use as a new password.
+     */
     private String generateRandomPassword(){
         return RandomStringUtils.randomAlphanumeric(10);
     }
