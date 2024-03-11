@@ -22,9 +22,18 @@ spring:
           auth: true
           starttls.enable: true
 
+  cloud:
+    aws:
+      credentials:
+        access-key: AKIAYS2NVKSQ6GS2RMOP
+        secret-key: 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
+      region:
+        static: eu-west-3
+
 
 server:
   port: 8080
   error:
     include-message: always
+
 

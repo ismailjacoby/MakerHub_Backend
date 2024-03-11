@@ -1,7 +1,7 @@
 package be.technobel.makerhub_backend.bll.services.implementations;
 
 import be.technobel.makerhub_backend.bll.services.NewsletterEmailService;
-import be.technobel.makerhub_backend.dal.models.entities.NewsletterEmail;
+import be.technobel.makerhub_backend.dal.models.entities.NewsletterEmailEntity;
 import be.technobel.makerhub_backend.dal.repositories.NewsletterEmailRepository;
 import be.technobel.makerhub_backend.pl.models.forms.EmailForm;
 import jakarta.persistence.EntityNotFoundException;
@@ -30,9 +30,9 @@ public class NewsletterEmailServiceImpl implements NewsletterEmailService {
             throw new IllegalArgumentException("Form can't be null");
         }
 
-        NewsletterEmail newsletterEmail = new NewsletterEmail();
-        newsletterEmail.setEmail(form.getEmail());
-        newsletterEmailRepository.save(newsletterEmail);
+        NewsletterEmailEntity newsletterEmailEntity = new NewsletterEmailEntity();
+        newsletterEmailEntity.setEmail(form.getEmail());
+        newsletterEmailRepository.save(newsletterEmailEntity);
     }
 
     /**
@@ -47,7 +47,7 @@ public class NewsletterEmailServiceImpl implements NewsletterEmailService {
             throw new IllegalArgumentException("Form can't be null");
         }
 
-        NewsletterEmail user = newsletterEmailRepository.findByEmail(form.getEmail()).orElseThrow(()-> new EntityNotFoundException("Email not found."));
+        NewsletterEmailEntity user = newsletterEmailRepository.findByEmail(form.getEmail()).orElseThrow(()-> new EntityNotFoundException("Email not found."));
         user.setSubscribed(false);
         newsletterEmailRepository.save(user);
     }

@@ -6,7 +6,7 @@ import be.technobel.makerhub_backend.bll.exceptions.DuplicateUserException;
 import be.technobel.makerhub_backend.bll.exceptions.NotFoundException;
 import be.technobel.makerhub_backend.bll.mailing.EmailSenderService;
 import be.technobel.makerhub_backend.bll.services.UserService;
-import be.technobel.makerhub_backend.dal.models.entities.NewsletterEmail;
+import be.technobel.makerhub_backend.dal.models.entities.NewsletterEmailEntity;
 import be.technobel.makerhub_backend.dal.models.entities.UserEntity;
 import be.technobel.makerhub_backend.dal.models.enums.UserRole;
 import be.technobel.makerhub_backend.dal.repositories.NewsletterEmailRepository;
@@ -112,9 +112,9 @@ public class UserServiceImpl implements UserService {
         userRepository.save(client);
 
         // Automatically subscribes the new user to the newsletter.
-        NewsletterEmail newsletterEmail = new NewsletterEmail();
-        newsletterEmail.setEmail(form.getEmail());
-        newsletterEmailRepository.save(newsletterEmail);
+        NewsletterEmailEntity newsletterEmailEntity = new NewsletterEmailEntity();
+        newsletterEmailEntity.setEmail(form.getEmail());
+        newsletterEmailRepository.save(newsletterEmailEntity);
     }
 
     /**
