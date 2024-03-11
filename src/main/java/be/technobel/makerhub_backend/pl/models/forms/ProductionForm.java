@@ -20,16 +20,13 @@ public class ProductionForm {
     private int bpm;
     private int duration;
     private boolean available;
-    private long playCount;
-    private int totalPurchased;
     @FutureOrPresent
     private LocalDate releaseDate;
+    @NotBlank(message = "Cover Image is required")
     private String coverImage;
     @NotBlank(message = "Atleast one MP3 file is required")
     private String audioMp3;
     private String audioWav;
     private String audioZip;
-
     private MusicGenre genre;
-    private LicenseType licenseType;
 }

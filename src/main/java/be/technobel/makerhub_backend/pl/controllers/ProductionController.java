@@ -18,7 +18,7 @@ public class ProductionController {
     }
 
     @PostMapping("/upload")
-    @ResponseStatus(HttpStatus.CREATED  )
+    @ResponseStatus(HttpStatus.CREATED)
     public void uploadProduction(@RequestParam("files") List<MultipartFile> files) {
         productionService.uploadProduction(files);
     }

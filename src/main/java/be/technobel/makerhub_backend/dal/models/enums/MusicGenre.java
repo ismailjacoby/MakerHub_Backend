@@ -11,5 +11,4 @@ public enum MusicGenre {
     AMAPIANO,
     POP,
     EDM
-
 }
