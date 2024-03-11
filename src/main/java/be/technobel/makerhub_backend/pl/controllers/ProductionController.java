@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/production")
+@RequestMapping("/productions")
 public class ProductionController {
 
     private final ProductionService productionService;
