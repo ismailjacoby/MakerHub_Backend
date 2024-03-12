@@ -56,8 +56,14 @@ public class UserServiceImpl implements UserService {
     public AuthDto login(LoginForm form) {
         // Authenticates the user with username and password.
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(form.getUsername(),form.getPassword()));
+
         // Retrieves the user entity based on username.
-        UserEntity user = userRepository.findByUsername(form.getUsername()).get();
+        Optional<UserEntity> userOptional = userRepository.findByUsername(form.getUsername());
+        if (!userOptional.isPresent()) {
+            throw new NotFoundException("User not found.");
+        }
+        UserEntity user = userOptional.get();
+
         // Generates JWT token for the authenticated user.
         String token = jwtProvider.generateToken(user.getUsername(), user.getRole());
 
