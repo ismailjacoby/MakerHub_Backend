@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.logging.log4j.message.Message;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -28,10 +29,10 @@ public class ProductionForm {
     @FutureOrPresent
     private LocalDate releaseDate;
     @NotBlank(message = "Cover Image is required")
-    private String coverImage;
+    private MultipartFile coverImage;
     @NotBlank(message = "Atleast one MP3 file is required")
-    private String audioMp3;
-    private String audioWav;
-    private String audioZip;
+    private MultipartFile audioMp3;
+    private MultipartFile audioWav;
+    private MultipartFile audioZip;
     private MusicGenre genre;
 }
