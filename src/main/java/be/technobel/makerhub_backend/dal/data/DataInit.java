@@ -1,20 +1,28 @@
 package be.technobel.makerhub_backend.dal.data;
 
+import be.technobel.makerhub_backend.dal.models.entities.ProductionEntity;
 import be.technobel.makerhub_backend.dal.models.entities.UserEntity;
+import be.technobel.makerhub_backend.dal.models.enums.MusicGenre;
 import be.technobel.makerhub_backend.dal.models.enums.UserRole;
+import be.technobel.makerhub_backend.dal.repositories.ProductionRepository;
 import be.technobel.makerhub_backend.dal.repositories.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class DataInit implements InitializingBean {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ProductionRepository productionRepository;
 
-    public DataInit(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public DataInit(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                    ProductionRepository productionRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.productionRepository = productionRepository;
     }
 
     /*
@@ -177,5 +185,59 @@ public class DataInit implements InitializingBean {
         kanyewest.setRole(UserRole.CLIENT);
         kanyewest.setPassword(passwordEncoder.encode("Test1234="));
         userRepository.save(kanyewest);
+
+        //Beat - Isla Rhythm
+        ProductionEntity latin = new ProductionEntity();
+        latin.setId(1L);
+        latin.setTitle("Isla Rhythm");
+        latin.setBpm(136);
+        latin.setAudioMp3("https://hybridvision.s3.amazonaws.com/e4e898f5-ddc5-4502-8235-413c8b527939.mp3");
+        latin.setCoverImage("https://hybridvision.s3.amazonaws.com/cb8b2cf1-ff66-41e5-a5a7-14abe27af9ad.png");
+        latin.setReleaseDate(LocalDate.now());
+        latin.setGenre(MusicGenre.LATIN);
+        latin.setDuration(67);
+        latin.setAvailable(true);
+        productionRepository.save(latin);
+
+        //Beat - Ruthless
+        ProductionEntity drill = new ProductionEntity();
+        drill.setId(2L);
+        drill.setTitle("Ruthless");
+        drill.setBpm(150);
+        drill.setAudioMp3("https://hybridvision.s3.amazonaws.com/fb6d4279-963c-4d20-a24c-ebdfd4ad9aae.mp3");
+        drill.setCoverImage("https://hybridvision.s3.amazonaws.com/4cd095a2-a554-475d-b250-ce161e1bd0ba.png");
+        drill.setReleaseDate(LocalDate.now());
+        drill.setGenre(MusicGenre.DRILL);
+        drill.setDuration(29);
+        drill.setAvailable(true);
+        productionRepository.save(drill);
+
+        //Beat - Latin
+        ProductionEntity chill = new ProductionEntity();
+        chill.setId(3L);
+        chill.setTitle("Chill Trap");
+        chill.setBpm(150);
+        chill.setAudioMp3("https://hybridvision.s3.amazonaws.com/2d8ac8f0-8f2a-4a29-9d99-85662aaedbec.wav");
+        chill.setCoverImage("https://hybridvision.s3.amazonaws.com/7a7155d8-4aa3-4ad3-9e8f-c4e6bfe7cf3e.png");
+        chill.setReleaseDate(LocalDate.now());
+        chill.setGenre(MusicGenre.EDM);
+        chill.setDuration(89);
+        chill.setAvailable(true);
+        productionRepository.save(chill);
+
+        //Beat - Latin
+        ProductionEntity dancehall = new ProductionEntity();
+        dancehall.setId(4L);
+        dancehall.setTitle("Safari");
+        dancehall.setBpm(100);
+        dancehall.setAudioMp3("https://hybridvision.s3.amazonaws.com/dc92286a-27a1-41ac-8e9f-e6009b731c56.wav");
+        dancehall.setCoverImage("https://hybridvision.s3.amazonaws.com/27ddc8cc-63a4-4da4-8666-3e26fe95ef36.png");
+        dancehall.setReleaseDate(LocalDate.now());
+        dancehall.setGenre(MusicGenre.LATIN);
+        dancehall.setDuration(45);
+        dancehall.setAvailable(true);
+        productionRepository.save(dancehall);
+
+
     }
 }
