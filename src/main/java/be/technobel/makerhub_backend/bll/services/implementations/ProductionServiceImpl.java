@@ -1,8 +1,10 @@
 package be.technobel.makerhub_backend.bll.services.implementations;
 
+import be.technobel.makerhub_backend.bll.exceptions.NotFoundException;
 import be.technobel.makerhub_backend.bll.services.ProductionService;
 import be.technobel.makerhub_backend.dal.models.entities.ProductionEntity;
 import be.technobel.makerhub_backend.dal.repositories.ProductionRepository;
+import be.technobel.makerhub_backend.pl.models.forms.ProductionForm;
 import com.mpatric.mp3agic.Mp3File;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -67,5 +69,34 @@ public class ProductionServiceImpl implements ProductionService {
         }
 
         productionRepository.save(production);
+    }
+
+    @Override
+    public ProductionForm editProduction(ProductionForm productionForm) {
+        ProductionEntity savedProduction = productionRepository.findById(productionForm.getId())
+                .orElseThrow(()-> new NotFoundException("Can't find production with id: " + productionForm.getId()));
+
+        savedProduction.setTitle(productionForm.getTitle());
+        savedProduction.setBpm(productionForm.getBpm());
+        savedProduction.setReleaseDate(productionForm.getReleaseDate());
+        savedProduction.setAvailable(productionForm.isAvailable());
+        savedProduction.setAudioMp3(productionForm.getAudioMp3());
+        savedProduction.setAudioWav(productionForm.getAudioWav());
+        savedProduction.setAudioZip(productionForm.getAudioZip());
+        savedProduction.setCoverImage(productionForm.getCoverImage());
+        savedProduction.setGenre(productionForm.getGenre());
+
+        productionRepository.save(savedProduction);
+        return productionForm;
+    }
+
+    @Override
+    public List<ProductionEntity> getAllProductions() {
+        return productionRepository.findAll();
+    }
+
+    @Override
+    public void deleteProduction(Long id) {
+        productionRepository.deleteById(id);
     }
 }

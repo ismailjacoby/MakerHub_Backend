@@ -7,18 +7,23 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.logging.log4j.message.Message;
 
 import java.time.LocalDate;
 
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class ProductionForm {
+    private Long id;
     @NotBlank(message = "Title is required")
     private String title;
     @NotBlank(message = "BPM is required")
     @Min(20) @Max(200)
     @Positive(message = "Number must be positive")
     private int bpm;
-    private int duration;
     private boolean available;
     @FutureOrPresent
     private LocalDate releaseDate;
