@@ -32,7 +32,10 @@ public class S3ServiceImpl implements FileService {
         String filenameExtension = StringUtils.getFilenameExtension(file.getOriginalFilename());
 
         //Creates a random UUID
-        String key = UUID.randomUUID().toString() + (StringUtils.hasLength(filenameExtension));
+        String key = UUID.randomUUID().toString();
+        if(StringUtils.hasLength(filenameExtension)) {
+            key += "." + filenameExtension;
+        }
 
         try{
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
@@ -41,10 +44,9 @@ public class S3ServiceImpl implements FileService {
                     .acl(ObjectCannedACL.PUBLIC_READ)
                     .build();
 
-            PutObjectResponse putObjectResponse = s3Client.putObject(putObjectRequest,
-                    RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+            s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
 
-            return String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, key);
+            return String.format("https://%s.s3.amazonaws.com/%s", bucketName, key);
         } catch (IOException ioException){
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "An error occurred while uploading the file.");
         }

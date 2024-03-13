@@ -27,6 +27,11 @@ spring:
       region:
         static: eu-west-3
 
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+
 
 server:
   port: 8080
