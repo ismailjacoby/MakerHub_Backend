@@ -1,6 +1,9 @@
 package be.technobel.makerhub_backend.pl.controllers;
 
+import be.technobel.makerhub_backend.bll.exceptions.NotFoundException;
 import be.technobel.makerhub_backend.bll.services.ProductionService;
+import be.technobel.makerhub_backend.dal.models.entities.ProductionEntity;
+import be.technobel.makerhub_backend.dal.repositories.ProductionRepository;
 import be.technobel.makerhub_backend.pl.models.dtos.ProductionDto;
 import be.technobel.makerhub_backend.pl.models.forms.ProductionForm;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,9 +21,12 @@ import java.util.stream.Collectors;
 public class ProductionController {
 
     private final ProductionService productionService;
+    private final ProductionRepository productionRepository;
 
-    public ProductionController(ProductionService productionService) {
+    public ProductionController(ProductionService productionService,
+                                ProductionRepository productionRepository) {
         this.productionService = productionService;
+        this.productionRepository = productionRepository;
     }
 
     @PostMapping("/upload")
@@ -40,8 +46,14 @@ public class ProductionController {
 
     @PutMapping("/edit")
     @ResponseStatus(HttpStatus.OK)
-    public ProductionForm editProduction(@RequestBody ProductionForm productionForm){
-        return productionService.editProduction(productionForm);
+    public ProductionForm editProduction(@RequestBody ProductionForm productionForm, Long id){
+        return productionService.editProduction(productionForm,id);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductionDto> getProductionById(@PathVariable Long id) {
+        return ResponseEntity.ok(ProductionDto.fromEntity(productionService.getProductionById(id)
+                .orElseThrow(()-> new NotFoundException("Production not found"))));
     }
 
     @GetMapping("/list")

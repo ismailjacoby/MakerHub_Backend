@@ -199,22 +199,36 @@ public class DataInit implements InitializingBean {
         latin.setAvailable(true);
         productionRepository.save(latin);
 
-        //Beat - Ruthless
-        ProductionEntity drill = new ProductionEntity();
-        drill.setId(2L);
-        drill.setTitle("Ruthless");
-        drill.setBpm(150);
-        drill.setAudioMp3("https://hybridvision.s3.amazonaws.com/fb6d4279-963c-4d20-a24c-ebdfd4ad9aae.mp3");
-        drill.setCoverImage("https://hybridvision.s3.amazonaws.com/4cd095a2-a554-475d-b250-ce161e1bd0ba.png");
-        drill.setReleaseDate(LocalDate.now());
-        drill.setGenre(MusicGenre.DRILL);
-        drill.setDuration(29);
-        drill.setAvailable(true);
-        productionRepository.save(drill);
+        //Beat - Lies
+        ProductionEntity lies = new ProductionEntity();
+        lies.setId(2L);
+        lies.setTitle("Lies");
+        lies.setBpm(96);
+        lies.setAudioMp3("https://hybridvision.s3.amazonaws.com/88869491-4198-4d40-b42c-37dfd0f4f558.mp3");
+        lies.setCoverImage("https://hybridvision.s3.amazonaws.com/2ea0f1f3-31dd-47d5-a497-4f6d6676a631.png");
+        lies.setReleaseDate(LocalDate.now());
+        lies.setGenre(MusicGenre.RNB);
+        lies.setDuration(136);
+        lies.setAvailable(true);
+        productionRepository.save(lies);
 
-        //Beat - Latin
+        //Beat - Toxic
+        ProductionEntity toxic = new ProductionEntity();
+        toxic.setId(3L);
+        toxic.setTitle("Toxic");
+        toxic.setBpm(100);
+        toxic.setAudioMp3("https://hybridvision.s3.amazonaws.com/7196390b-cb11-42aa-8b50-1ed6bbde656c.mp3");
+        toxic.setCoverImage("https://hybridvision.s3.amazonaws.com/d96e1a04-7d71-4b70-8479-26c5e6fc107f.png");
+        toxic.setReleaseDate(LocalDate.now());
+        toxic.setGenre(MusicGenre.CLUB);
+        toxic.setDuration(146);
+        toxic.setAvailable(true);
+        productionRepository.save(toxic);
+
+
+        //Beat - Chill
         ProductionEntity chill = new ProductionEntity();
-        chill.setId(3L);
+        chill.setId(4L);
         chill.setTitle("Chill Trap");
         chill.setBpm(150);
         chill.setAudioMp3("https://hybridvision.s3.amazonaws.com/2d8ac8f0-8f2a-4a29-9d99-85662aaedbec.wav");
@@ -225,18 +239,72 @@ public class DataInit implements InitializingBean {
         chill.setAvailable(true);
         productionRepository.save(chill);
 
-        //Beat - Latin
+        //Beat - Ruthless
+        ProductionEntity drill = new ProductionEntity();
+        drill.setId(5L);
+        drill.setTitle("Ruthless");
+        drill.setBpm(150);
+        drill.setAudioMp3("https://hybridvision.s3.amazonaws.com/fb6d4279-963c-4d20-a24c-ebdfd4ad9aae.mp3");
+        drill.setCoverImage("https://hybridvision.s3.amazonaws.com/4cd095a2-a554-475d-b250-ce161e1bd0ba.png");
+        drill.setReleaseDate(LocalDate.now());
+        drill.setGenre(MusicGenre.DRILL);
+        drill.setDuration(29);
+        drill.setAvailable(true);
+        productionRepository.save(drill);
+
+        //Beat - Dancehall
         ProductionEntity dancehall = new ProductionEntity();
-        dancehall.setId(4L);
+        dancehall.setId(6L);
         dancehall.setTitle("Safari");
         dancehall.setBpm(100);
         dancehall.setAudioMp3("https://hybridvision.s3.amazonaws.com/dc92286a-27a1-41ac-8e9f-e6009b731c56.wav");
         dancehall.setCoverImage("https://hybridvision.s3.amazonaws.com/27ddc8cc-63a4-4da4-8666-3e26fe95ef36.png");
         dancehall.setReleaseDate(LocalDate.now());
-        dancehall.setGenre(MusicGenre.LATIN);
+        dancehall.setGenre(MusicGenre.AFROBEATS);
         dancehall.setDuration(45);
         dancehall.setAvailable(true);
         productionRepository.save(dancehall);
+
+        //Beat - Afrobeat
+        ProductionEntity guidance = new ProductionEntity();
+        guidance.setId(7L);
+        guidance.setTitle("No Guidance");
+        guidance.setBpm(99);
+        guidance.setAudioMp3("https://hybridvision.s3.amazonaws.com/a93a465e-6b6b-48f4-b9d6-76c41f88bb8c.mp3");
+        guidance.setCoverImage("https://hybridvision.s3.amazonaws.com/f218f578-1273-4602-b55e-890041d9615b.png");
+        guidance.setReleaseDate(LocalDate.now());
+        guidance.setGenre(MusicGenre.AFROBEATS);
+        guidance.setDuration(175);
+        guidance.setAvailable(true);
+        productionRepository.save(guidance);
+
+        //Beat - Lean on me
+        ProductionEntity leanOnMe = new ProductionEntity();
+        leanOnMe.setId(8L);
+        leanOnMe.setTitle("Lean On Me");
+        leanOnMe.setBpm(101);
+        leanOnMe.setAudioMp3("https://hybridvision.s3.amazonaws.com/d9156966-4091-4f47-88b9-f1d2e927e387.mp3");
+        leanOnMe.setCoverImage("https://hybridvision.s3.amazonaws.com/10c84393-6423-44aa-99cf-d91c870ee067.png");
+        leanOnMe.setReleaseDate(LocalDate.now());
+        leanOnMe.setGenre(MusicGenre.AFROBEATS);
+        leanOnMe.setDuration(172);
+        leanOnMe.setAvailable(true);
+        productionRepository.save(leanOnMe);
+
+        //Beat - Flashback
+        ProductionEntity flashback = new ProductionEntity();
+        flashback.setId(9L);
+        flashback.setTitle("Lean On Me");
+        flashback.setBpm(100);
+        flashback.setAudioMp3("https://hybridvision.s3.amazonaws.com/0582abf3-6894-432c-b31e-18e34640c6e7.mp3");
+        flashback.setCoverImage("https://hybridvision.s3.amazonaws.com/118d8eb7-73ad-430f-b9a2-e75543db5c93.png");
+        flashback.setReleaseDate(LocalDate.now());
+        flashback.setGenre(MusicGenre.AFROBEATS);
+        flashback.setDuration(162);
+        flashback.setAvailable(true);
+        productionRepository.save(flashback);
+
+
 
 
     }

@@ -6,11 +6,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductionService {
     void uploadProduction(String title, int bpm, LocalDate releaseDate, String genre, MultipartFile coverImage, MultipartFile audioMp3, MultipartFile audioWav, MultipartFile audioZip);
-    ProductionForm editProduction(ProductionForm productionForm);
+    ProductionForm editProduction(ProductionForm productionForm, Long id);
+    Optional<ProductionEntity> getProductionById(Long id);
     List<ProductionEntity> getAllProductions();
+
     void deleteProduction(Long id);
 
 }

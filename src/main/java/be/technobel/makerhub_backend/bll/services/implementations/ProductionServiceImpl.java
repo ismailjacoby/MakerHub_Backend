@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductionServiceImpl implements ProductionService {
@@ -60,9 +61,13 @@ public class ProductionServiceImpl implements ProductionService {
     }
 
     @Override
-    public ProductionForm editProduction(ProductionForm productionForm) {
-        ProductionEntity savedProduction = productionRepository.findById(productionForm.getId())
+    public ProductionForm editProduction(ProductionForm productionForm, Long id) {
+        ProductionEntity savedProduction = productionRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException("Can't find production with id: " + productionForm.getId()));
+
+        if(productionForm == null){
+            throw new IllegalArgumentException("Form can't be null");
+        }
 
         savedProduction.setTitle(productionForm.getTitle());
         savedProduction.setBpm(productionForm.getBpm());
@@ -76,6 +81,11 @@ public class ProductionServiceImpl implements ProductionService {
 
         productionRepository.save(savedProduction);
         return productionForm;
+    }
+
+    @Override
+    public Optional<ProductionEntity> getProductionById(Long id) {
+        return productionRepository.findById(id);
     }
 
     @Override
