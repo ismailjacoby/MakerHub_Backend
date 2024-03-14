@@ -85,6 +85,22 @@ public class ProductionServiceImpl implements ProductionService {
 
     @Override
     public void deleteProduction(Long id) {
+        ProductionEntity production = productionRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Can't find production with id: " + id));
+
+        if (production.getCoverImage() != null) {
+            s3Service.deleteFile(production.getCoverImage());
+        }
+        if (production.getAudioMp3() != null) {
+            s3Service.deleteFile(production.getAudioMp3());
+        }
+        if (production.getAudioWav() != null) {
+            s3Service.deleteFile(production.getAudioWav());
+        }
+        if (production.getAudioZip() != null) {
+            s3Service.deleteFile(production.getAudioZip());
+        }
+
         productionRepository.deleteById(id);
     }
 

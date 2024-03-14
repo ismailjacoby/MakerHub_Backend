@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
+import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -49,6 +48,22 @@ public class S3ServiceImpl implements FileService {
             return String.format("https://%s.s3.amazonaws.com/%s", bucketName, key);
         } catch (IOException ioException){
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "An error occurred while uploading the file.");
+        }
+    }
+
+    @Override
+    public void deleteFile(String fileUrl) {
+        try {
+            String key = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+            DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .build();
+            s3Client.deleteObject(deleteObjectRequest);
+        } catch (S3Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "AWS service error during file deletion", e);
+        } catch (SdkClientException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "AWS SDK client error during file deletion", e);
         }
     }
 }

@@ -55,8 +55,9 @@ public class ProductionController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteProduction(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deleteProduction(@PathVariable Long id) {
         productionService.deleteProduction(id);
+        return ResponseEntity.ok().build();
     }
 }
 
