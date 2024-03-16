@@ -21,4 +21,7 @@ public class SamplePackEntity {
 
     @ManyToMany(mappedBy = "samplePacks")
     private List<WishlistEntity> wishlists;
+
+    @OneToMany(mappedBy = "samplePack", cascade = CascadeType.ALL)
+    private List<CartItemEntity> cartItems;
 }

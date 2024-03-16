@@ -42,4 +42,7 @@ public class ProductionEntity {
     @ManyToMany(mappedBy = "productions")
     private List<WishlistEntity> wishlists;
 
+    @OneToMany(mappedBy = "production", cascade = CascadeType.ALL)
+    private List<CartItemEntity> cartItems;
+
 }

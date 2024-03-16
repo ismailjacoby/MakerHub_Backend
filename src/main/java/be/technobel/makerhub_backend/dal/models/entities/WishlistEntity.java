@@ -20,9 +20,9 @@ public class WishlistEntity {
 
     @ManyToMany
     @JoinTable(
-        name = "wishlist_productions",
-        joinColumns = @JoinColumn(name = "wishlist_id"),
-        inverseJoinColumns = @JoinColumn(name = "samplepack_id")
+            name = "wishlist_productions",
+            joinColumns = @JoinColumn(name = "wishlist_id"),
+            inverseJoinColumns = @JoinColumn(name = "production_id")
     )
     private List<ProductionEntity> productions;
 

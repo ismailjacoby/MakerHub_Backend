@@ -38,6 +38,12 @@ public class UserEntity implements UserDetails {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private WishlistEntity wishlist;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private ShoppingCartEntity shoppingCart;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<OrderEntity> orders;
+
     public void updatePassword(String newPassword){
         this.password = newPassword;
     }
