@@ -14,12 +14,12 @@ public class WishlistController {
     }
 
     @PostMapping("/add")
-    public void addToWishlist(@RequestParam Long userId, @RequestParam Long productionId, @RequestParam Long samplePackId) {
+    public void addToWishlist(@RequestParam Long userId, @RequestParam(required = false) Long productionId, @RequestParam(required = false) Long samplePackId) {
         wishlistService.addToWishlist(userId, productionId, samplePackId);
     }
 
     @PostMapping("/remove")
-    public void removeFromWishlist(@RequestParam Long userId, @RequestParam Long productionId, @RequestParam Long samplePackId) {
+    public void removeFromWishlist(@RequestParam Long userId, @RequestParam(required = false) Long productionId, @RequestParam(required = false) Long samplePackId) {
         wishlistService.removeFromWishlist(userId, productionId, samplePackId);
     }
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Getter @Setter @AllArgsConstructor @NoArgsConstructor
@@ -24,7 +25,7 @@ public class WishlistEntity {
             joinColumns = @JoinColumn(name = "wishlist_id"),
             inverseJoinColumns = @JoinColumn(name = "production_id")
     )
-    private List<ProductionEntity> productions;
+    private List<ProductionEntity> productions = new ArrayList<>();
 
 
     @ManyToMany
@@ -33,6 +34,6 @@ public class WishlistEntity {
             joinColumns = @JoinColumn(name = "wishlist_id"),
             inverseJoinColumns = @JoinColumn(name = "sample_pack_id")
     )
-    private List<SamplePackEntity> samplePacks;
+    private List<SamplePackEntity> samplePacks= new ArrayList<>();
 
 }
