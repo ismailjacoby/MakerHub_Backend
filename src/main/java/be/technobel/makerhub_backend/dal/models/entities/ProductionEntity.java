@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
@@ -37,5 +38,8 @@ public class ProductionEntity {
     private MusicGenre genre;
     @Column(name="license_type")
     private LicenseType licenseType;
+
+    @ManyToMany(mappedBy = "productions")
+    private List<WishlistEntity> wishlists;
 
 }

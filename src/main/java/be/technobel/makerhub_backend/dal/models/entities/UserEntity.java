@@ -34,6 +34,10 @@ public class UserEntity implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     private UserRole role = UserRole.CLIENT;
 
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private WishlistEntity wishlist;
+
     public void updatePassword(String newPassword){
         this.password = newPassword;
     }
