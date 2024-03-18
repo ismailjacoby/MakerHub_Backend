@@ -38,8 +38,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void addToCart(Long userId, Long itemId, boolean isProduction, LicenseType licenseType) {
-        UserEntity user = userRepository.findById(userId)
+    public void addToCart(String username, Long itemId, boolean isProduction, LicenseType licenseType) {
+        UserEntity user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         ShoppingCartEntity shoppingCart = user.getShoppingCart();
@@ -72,9 +72,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     @Transactional
-    public void removeFromCart(Long userId, Long cartItemId) {
-        UserEntity user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));
+    public void removeFromCart(String username, Long cartItemId) {
+        UserEntity user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         CartItemEntity cartItem = cartItemRepository.findById(cartItemId)
                 .orElseThrow(() -> new IllegalArgumentException("Cart item not found with ID: " + cartItemId));
@@ -88,8 +88,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public List<CartItemsDto> getAllCartItems(Long userId) {
-        UserEntity user = userRepository.findById(userId)
+    public List<CartItemsDto> getAllCartItems(String username) {
+        UserEntity user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
         return user.getShoppingCart().getItems().stream()
                 .map(item -> {

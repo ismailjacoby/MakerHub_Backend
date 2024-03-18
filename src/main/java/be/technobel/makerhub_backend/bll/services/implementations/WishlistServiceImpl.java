@@ -10,7 +10,11 @@ import be.technobel.makerhub_backend.dal.repositories.ProductionRepository;
 import be.technobel.makerhub_backend.dal.repositories.SamplePackRepository;
 import be.technobel.makerhub_backend.dal.repositories.UserRepository;
 import be.technobel.makerhub_backend.dal.repositories.WishlistRepository;
+import be.technobel.makerhub_backend.pl.models.dtos.CartItemsDto;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WishlistServiceImpl implements WishlistService {
@@ -73,7 +77,7 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public void getWishlist() {
-        wishlistRepository.findAll();
+    public List<CartItemsDto> getAllWishlist(String username) {
+        return null;
     }
 }

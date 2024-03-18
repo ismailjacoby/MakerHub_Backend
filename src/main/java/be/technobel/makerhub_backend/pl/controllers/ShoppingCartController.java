@@ -21,12 +21,12 @@ public class ShoppingCartController {
 
     @PostMapping("/addItem")
     public ResponseEntity<String> addItemToCart(
-            @RequestParam Long userId,
+            @RequestParam String username,
             @RequestParam Long itemId,
             @RequestParam boolean isProduction,
             @RequestParam LicenseType licenseType) {
         try {
-            shoppingCartService.addToCart(userId, itemId, isProduction, licenseType);
+            shoppingCartService.addToCart(username, itemId, isProduction, licenseType);
             return new ResponseEntity<>("Item added to cart successfully", HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -35,12 +35,12 @@ public class ShoppingCartController {
         }
     }
 
-    @DeleteMapping("/removeItem/{userId}/{cartItemId}")
+    @DeleteMapping("/removeItem/{username}/{cartItemId}")
     public ResponseEntity<String> removeItemFromCart(
-            @PathVariable Long userId,
+            @PathVariable String username,
             @PathVariable Long cartItemId) {
         try {
-            shoppingCartService.removeFromCart(userId, cartItemId);
+            shoppingCartService.removeFromCart(username, cartItemId);
             return new ResponseEntity<>("Item removed from cart successfully", HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -49,10 +49,10 @@ public class ShoppingCartController {
         }
     }
 
-    @GetMapping("/cart/items/{userId}")
-    public ResponseEntity<List<CartItemsDto>> getCartItems(@PathVariable Long userId) {
+    @GetMapping("/cart/items/{username}")
+    public ResponseEntity<List<CartItemsDto>> getCartItems(@PathVariable String username) {
         try {
-            List<CartItemsDto> items = shoppingCartService.getAllCartItems(userId);
+            List<CartItemsDto> items = shoppingCartService.getAllCartItems(username);
             return new ResponseEntity<>(items, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
