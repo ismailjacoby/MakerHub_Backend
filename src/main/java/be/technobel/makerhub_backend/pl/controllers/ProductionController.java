@@ -21,12 +21,11 @@ import java.util.stream.Collectors;
 public class ProductionController {
 
     private final ProductionService productionService;
-    private final ProductionRepository productionRepository;
 
-    public ProductionController(ProductionService productionService,
-                                ProductionRepository productionRepository) {
+
+    public ProductionController(ProductionService productionService) {
         this.productionService = productionService;
-        this.productionRepository = productionRepository;
+
     }
 
     @PostMapping("/upload")
@@ -46,8 +45,8 @@ public class ProductionController {
 
     @PutMapping("/edit")
     @ResponseStatus(HttpStatus.OK)
-    public ProductionForm editProduction(@RequestBody ProductionForm productionForm, Long id){
-        return productionService.editProduction(productionForm,id);
+    public void editProduction(@RequestBody ProductionForm productionForm, Long id){
+        productionService.editProduction(productionForm,id);
     }
 
     @GetMapping("/{id}")

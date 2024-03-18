@@ -61,7 +61,7 @@ public class ProductionServiceImpl implements ProductionService {
     }
 
     @Override
-    public ProductionForm editProduction(ProductionForm productionForm, Long id) {
+    public void editProduction(ProductionForm productionForm, Long id) {
         ProductionEntity savedProduction = productionRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException("Can't find production with id: " + productionForm.getId()));
 
@@ -80,7 +80,6 @@ public class ProductionServiceImpl implements ProductionService {
         savedProduction.setGenre(productionForm.getGenre());
 
         productionRepository.save(savedProduction);
-        return productionForm;
     }
 
     @Override
