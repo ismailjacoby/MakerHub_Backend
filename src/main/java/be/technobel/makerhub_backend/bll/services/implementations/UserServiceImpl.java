@@ -7,9 +7,11 @@ import be.technobel.makerhub_backend.bll.exceptions.NotFoundException;
 import be.technobel.makerhub_backend.bll.mailing.EmailSenderService;
 import be.technobel.makerhub_backend.bll.services.UserService;
 import be.technobel.makerhub_backend.dal.models.entities.NewsletterEmailEntity;
+import be.technobel.makerhub_backend.dal.models.entities.ShoppingCartEntity;
 import be.technobel.makerhub_backend.dal.models.entities.UserEntity;
 import be.technobel.makerhub_backend.dal.models.enums.UserRole;
 import be.technobel.makerhub_backend.dal.repositories.NewsletterEmailRepository;
+import be.technobel.makerhub_backend.dal.repositories.ShoppingCartRepository;
 import be.technobel.makerhub_backend.dal.repositories.UserRepository;
 import be.technobel.makerhub_backend.pl.config.security.JWTProvider;
 import be.technobel.makerhub_backend.pl.models.dtos.AuthDto;
@@ -37,16 +39,19 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final NewsletterEmailRepository newsletterEmailRepository;
     private final EmailSenderService emailSenderService;
+    private final ShoppingCartRepository shoppingCartRepository;
 
     public UserServiceImpl(AuthenticationManager authenticationManager,
                            UserRepository userRepository,
-                           JWTProvider jwtProvider, PasswordEncoder passwordEncoder, NewsletterEmailRepository newsletterEmailRepository, EmailSenderService emailSenderService) {
+                           JWTProvider jwtProvider, PasswordEncoder passwordEncoder, NewsletterEmailRepository newsletterEmailRepository, EmailSenderService emailSenderService,
+                           ShoppingCartRepository shoppingCartRepository) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.jwtProvider = jwtProvider;
         this.passwordEncoder = passwordEncoder;
         this.newsletterEmailRepository = newsletterEmailRepository;
         this.emailSenderService = emailSenderService;
+        this.shoppingCartRepository = shoppingCartRepository;
     }
 
     /**
@@ -115,6 +120,13 @@ public class UserServiceImpl implements UserService {
         client.setPassword(passwordEncoder.encode(form.getPassword()));
         client.setActive(true);
         client.setBlocked(false);
+        userRepository.save(client);
+
+        ShoppingCartEntity shoppingCart = new ShoppingCartEntity();
+        shoppingCart.setUser(client);
+        shoppingCartRepository.save(shoppingCart);
+
+        client.setShoppingCart(shoppingCart);
         userRepository.save(client);
 
         // Automatically subscribes the new user to the newsletter.

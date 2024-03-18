@@ -1,10 +1,12 @@
 package be.technobel.makerhub_backend.dal.data;
 
 import be.technobel.makerhub_backend.dal.models.entities.ProductionEntity;
+import be.technobel.makerhub_backend.dal.models.entities.ShoppingCartEntity;
 import be.technobel.makerhub_backend.dal.models.entities.UserEntity;
 import be.technobel.makerhub_backend.dal.models.enums.MusicGenre;
 import be.technobel.makerhub_backend.dal.models.enums.UserRole;
 import be.technobel.makerhub_backend.dal.repositories.ProductionRepository;
+import be.technobel.makerhub_backend.dal.repositories.ShoppingCartRepository;
 import be.technobel.makerhub_backend.dal.repositories.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,12 +19,14 @@ public class DataInit implements InitializingBean {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final ProductionRepository productionRepository;
+    private final ShoppingCartRepository shoppingCartRepository;
 
     public DataInit(UserRepository userRepository, PasswordEncoder passwordEncoder,
-                    ProductionRepository productionRepository) {
+                    ProductionRepository productionRepository, ShoppingCartRepository shoppingCartRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.productionRepository = productionRepository;
+        this.shoppingCartRepository = shoppingCartRepository;
     }
 
     /*
@@ -43,6 +47,7 @@ public class DataInit implements InitializingBean {
         hybridvision.setPassword(passwordEncoder.encode("Test1234="));
         userRepository.save(hybridvision);
 
+
         //ADMIN - Ismail
         UserEntity ismail = new UserEntity();
         ismail.setId(2L);
@@ -56,7 +61,8 @@ public class DataInit implements InitializingBean {
         ismail.setPassword(passwordEncoder.encode("Test1234="));
         userRepository.save(ismail);
 
-        //ADMIN - Ismail
+
+        //ADMIN - Francisco
         UserEntity francisco = new UserEntity();
         francisco.setId(3L);
         francisco.setUsername("franciscolopesmorais");
@@ -82,6 +88,10 @@ public class DataInit implements InitializingBean {
         user1.setPassword(passwordEncoder.encode("Test1234="));
         userRepository.save(user1);
 
+        ShoppingCartEntity user1Cart = new ShoppingCartEntity();
+        user1Cart.setUser(user1);
+        shoppingCartRepository.save(user1Cart);
+
         //CLIENT - string
         UserEntity user2 = new UserEntity();
         user2.setId(5L);
@@ -94,6 +104,10 @@ public class DataInit implements InitializingBean {
         user2.setRole(UserRole.CLIENT);
         user2.setPassword(passwordEncoder.encode("Test1234="));
         userRepository.save(user2);
+
+        ShoppingCartEntity user2Cart = new ShoppingCartEntity();
+        user2Cart.setUser(user2);
+        shoppingCartRepository.save(user2Cart);
 
         // CLIENT - Travis Scott
         UserEntity travisScott = new UserEntity();
@@ -108,6 +122,10 @@ public class DataInit implements InitializingBean {
         travisScott.setPassword(passwordEncoder.encode("Test1234="));
         userRepository.save(travisScott);
 
+        ShoppingCartEntity travisScottCart = new ShoppingCartEntity();
+        travisScottCart.setUser(travisScott);
+        shoppingCartRepository.save(travisScottCart);
+
         // CLIENT - Nicki Minaj
         UserEntity nickiminaj = new UserEntity();
         nickiminaj.setId(7L);
@@ -120,6 +138,10 @@ public class DataInit implements InitializingBean {
         nickiminaj.setRole(UserRole.CLIENT);
         nickiminaj.setPassword(passwordEncoder.encode("Test1234="));
         userRepository.save(nickiminaj);
+
+        ShoppingCartEntity nickiMinajCart = new ShoppingCartEntity();
+        nickiMinajCart.setUser(nickiminaj);
+        shoppingCartRepository.save(nickiMinajCart);
 
         // CLIENT - Pop Smoke
         UserEntity popsmoke = new UserEntity();
@@ -134,6 +156,10 @@ public class DataInit implements InitializingBean {
         popsmoke.setPassword(passwordEncoder.encode("Test1234="));
         userRepository.save(popsmoke);
 
+        ShoppingCartEntity popSmokeCart = new ShoppingCartEntity();
+        popSmokeCart.setUser(popsmoke);
+        shoppingCartRepository.save(popSmokeCart);
+
         // CLIENT - Snoop Dogg
         UserEntity snoopdogg = new UserEntity();
         snoopdogg.setId(9L);
@@ -146,6 +172,10 @@ public class DataInit implements InitializingBean {
         snoopdogg.setRole(UserRole.CLIENT);
         snoopdogg.setPassword(passwordEncoder.encode("Test1234="));
         userRepository.save(snoopdogg);
+
+        ShoppingCartEntity snoopDoggCart = new ShoppingCartEntity();
+        snoopDoggCart.setUser(snoopdogg);
+        shoppingCartRepository.save(snoopDoggCart);
 
         // CLIENT - Big Sean
         UserEntity bigsean = new UserEntity();
@@ -160,6 +190,10 @@ public class DataInit implements InitializingBean {
         bigsean.setPassword(passwordEncoder.encode("Test1234="));
         userRepository.save(bigsean);
 
+        ShoppingCartEntity bigSeanCart = new ShoppingCartEntity();
+        bigSeanCart.setUser(bigsean);
+        shoppingCartRepository.save(bigSeanCart);
+
         // CLIENT - Post Malone
         UserEntity postmalone = new UserEntity();
         postmalone.setId(11L);
@@ -173,6 +207,10 @@ public class DataInit implements InitializingBean {
         postmalone.setPassword(passwordEncoder.encode("Test1234="));
         userRepository.save(postmalone);
 
+        ShoppingCartEntity postMaloneCart = new ShoppingCartEntity();
+        postMaloneCart.setUser(postmalone);
+        shoppingCartRepository.save(postMaloneCart);
+
         // CLIENT - Kanye West
         UserEntity kanyewest = new UserEntity();
         kanyewest.setId(12L);
@@ -185,6 +223,10 @@ public class DataInit implements InitializingBean {
         kanyewest.setRole(UserRole.CLIENT);
         kanyewest.setPassword(passwordEncoder.encode("Test1234="));
         userRepository.save(kanyewest);
+
+        ShoppingCartEntity kanyeWestCart = new ShoppingCartEntity();
+        kanyeWestCart.setUser(kanyewest);
+        shoppingCartRepository.save(kanyeWestCart);
 
         //Beat - Isla Rhythm
         ProductionEntity latin = new ProductionEntity();

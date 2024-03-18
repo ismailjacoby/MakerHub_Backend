@@ -38,7 +38,7 @@ public class ProductionServiceImpl implements ProductionService {
         production.setTitle(title);
         production.setBpm(bpm);
         production.setReleaseDate(releaseDate);
-        production.setGenre(MusicGenre.valueOf(genre)); // Assuming genre is a valid enum value
+        production.setGenre(MusicGenre.valueOf(genre));
         production.setAvailable(true);
 
 

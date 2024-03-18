@@ -18,7 +18,7 @@ public class WishlistController {
         wishlistService.addToWishlist(userId, productionId, samplePackId);
     }
 
-    @PostMapping("/remove")
+    @DeleteMapping("/remove")
     public void removeFromWishlist(@RequestParam Long userId, @RequestParam(required = false) Long productionId, @RequestParam(required = false) Long samplePackId) {
         wishlistService.removeFromWishlist(userId, productionId, samplePackId);
     }

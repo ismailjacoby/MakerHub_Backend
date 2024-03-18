@@ -34,6 +34,6 @@ public class WishlistEntity {
             joinColumns = @JoinColumn(name = "wishlist_id"),
             inverseJoinColumns = @JoinColumn(name = "sample_pack_id")
     )
-    private List<SamplePackEntity> samplePacks= new ArrayList<>();
+    private List<SamplePackEntity> samplePacks = new ArrayList<>();
 
 }
