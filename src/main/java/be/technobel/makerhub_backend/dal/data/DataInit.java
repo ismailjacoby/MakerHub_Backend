@@ -233,6 +233,23 @@ public class DataInit implements InitializingBean {
         kanyeWestCart.setUser(kanyewest);
         shoppingCartRepository.save(kanyeWestCart);
 
+        // CLIENT - Client
+        UserEntity client = new UserEntity();
+        client.setId(13L);
+        client.setUsername("client");
+        client.setFirstName("Client");
+        client.setLastName("Client");
+        client.setEmail("client@example.com");
+        client.setActive(true);
+        client.setBlocked(false);
+        client.setRole(UserRole.CLIENT);
+        client.setPassword(passwordEncoder.encode("Test1234="));
+        userRepository.save(client);
+
+        ShoppingCartEntity clientCart = new ShoppingCartEntity();
+        clientCart.setUser(client);
+        shoppingCartRepository.save(clientCart);
+
         //Beat - Isla Rhythm
         ProductionEntity latin = new ProductionEntity();
         latin.setId(1L);
@@ -351,6 +368,7 @@ public class DataInit implements InitializingBean {
         flashback.setAvailable(true);
         productionRepository.save(flashback);
 
+        // Sample Pack 1
         SamplePackEntity pack1 = new SamplePackEntity();
         pack1.setId(1L);
         pack1.setTitle("HV - Essentials Vol.1");
@@ -360,6 +378,7 @@ public class DataInit implements InitializingBean {
         pack1.setAudioUrl("https://hybridvision.s3.amazonaws.com/09060024-ca61-4466-8586-8ccc99ecdfce.mp3");
         samplePackRepository.save(pack1);
 
+        // Sample Pack 2
         SamplePackEntity pack2 = new SamplePackEntity();
         pack2.setId(2L);
         pack2.setTitle("HV - Essentials Vol.2");
@@ -369,6 +388,7 @@ public class DataInit implements InitializingBean {
         pack2.setAudioUrl("https://hybridvision.s3.amazonaws.com/e9156116-40a0-4f86-9367-2dbc5cc41c68.mp3");
         samplePackRepository.save(pack2);
 
+        // Sample Pack 3
         SamplePackEntity pack3 = new SamplePackEntity();
         pack3.setId(3L);
         pack3.setTitle("HV - Essentials Vol.3");
@@ -378,6 +398,7 @@ public class DataInit implements InitializingBean {
         pack3.setAudioUrl("https://hybridvision.s3.amazonaws.com/fc01ca6d-dc51-46ff-a016-27aaaef274b5.mp3");
         samplePackRepository.save(pack3);
 
+        // Sample Pack 4
         SamplePackEntity pack4 = new SamplePackEntity();
         pack4.setId(4L);
         pack4.setTitle("HV - Essentials Vol.4");
