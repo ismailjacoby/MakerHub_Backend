@@ -372,7 +372,7 @@ public class DataInit implements InitializingBean {
         SamplePackEntity pack1 = new SamplePackEntity();
         pack1.setId(1L);
         pack1.setTitle("HV - Essentials Vol.1");
-        pack1.setDescription("This is a description of the Sample Pack");
+        pack1.setDescription("With Hybridvision\'s Essential Sample Pack series, the possibilities are ENDLESS! Having Essentials in your sound arsenal will step up your production quality, and will give you the inspiration you need to start & FINISH tracks!");
         pack1.setPrice(24.95);
         pack1.setCoverImageUrl("https://hybridvision.s3.amazonaws.com/b4ede81e-5fcb-40d4-8723-677d7ff5ec9b.jpg");
         pack1.setAudioUrl("https://hybridvision.s3.amazonaws.com/09060024-ca61-4466-8586-8ccc99ecdfce.mp3");
@@ -382,7 +382,7 @@ public class DataInit implements InitializingBean {
         SamplePackEntity pack2 = new SamplePackEntity();
         pack2.setId(2L);
         pack2.setTitle("HV - Essentials Vol.2");
-        pack2.setDescription("This is a description of the Sample Pack");
+        pack2.setDescription("With Hybridvision\'s Essential Sample Pack series, the possibilities are ENDLESS! Having Essentials in your sound arsenal will step up your production quality, and will give you the inspiration you need to start & FINISH tracks!");
         pack2.setPrice(24.95);
         pack2.setCoverImageUrl("https://hybridvision.s3.amazonaws.com/8e978c32-2da5-47bf-aa91-56469b164ef6.jpg");
         pack2.setAudioUrl("https://hybridvision.s3.amazonaws.com/e9156116-40a0-4f86-9367-2dbc5cc41c68.mp3");
@@ -392,7 +392,7 @@ public class DataInit implements InitializingBean {
         SamplePackEntity pack3 = new SamplePackEntity();
         pack3.setId(3L);
         pack3.setTitle("HV - Essentials Vol.3");
-        pack3.setDescription("This is a description of the Sample Pack");
+        pack3.setDescription("With Hybridvision\'s Essential Sample Pack series, the possibilities are ENDLESS! Having Essentials in your sound arsenal will step up your production quality, and will give you the inspiration you need to start & FINISH tracks!");
         pack3.setPrice(24.95);
         pack3.setCoverImageUrl("https://hybridvision.s3.amazonaws.com/c9bee787-e423-48c0-8c8e-90035d567cc0.png");
         pack3.setAudioUrl("https://hybridvision.s3.amazonaws.com/fc01ca6d-dc51-46ff-a016-27aaaef274b5.mp3");
@@ -402,7 +402,7 @@ public class DataInit implements InitializingBean {
         SamplePackEntity pack4 = new SamplePackEntity();
         pack4.setId(4L);
         pack4.setTitle("HV - Essentials Vol.4");
-        pack4.setDescription("This is a description of the Sample Pack");
+        pack4.setDescription("With Hybridvision\'s Essential Sample Pack series, the possibilities are ENDLESS! Having Essentials in your sound arsenal will step up your production quality, and will give you the inspiration you need to start & FINISH tracks!");
         pack4.setPrice(24.95);
         pack4.setCoverImageUrl("https://hybridvision.s3.amazonaws.com/5d81edc2-1764-4f10-9e93-9d796f4ed281.jpg");
         pack4.setAudioUrl("https://hybridvision.s3.amazonaws.com/6d068ab5-3370-4338-9cfa-b53129b3100a.mp3");
