@@ -9,5 +9,4 @@ public interface ShoppingCartService {
     void addToCart(String username, Long itemId, boolean isProduction, LicenseType licenseType);
     void removeFromCart(String username, Long cartItemId);
     List<CartItemsDto> getAllCartItems(String username);
-
 }

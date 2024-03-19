@@ -13,6 +13,7 @@ import be.technobel.makerhub_backend.dal.repositories.WishlistRepository;
 import be.technobel.makerhub_backend.pl.models.dtos.CartItemsDto;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,8 +32,8 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public void addToWishlist(Long userId, Long productionId, Long samplePackId) {
-        UserEntity user = userRepository.findById(userId)
+    public void addToWishlist(String username, Long productionId, Long samplePackId) {
+        UserEntity user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found."));
         WishlistEntity wishlist = user.getWishlist();
 
@@ -56,8 +57,8 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public void removeFromWishlist(Long userId, Long productionId, Long samplePackId) {
-        UserEntity user = userRepository.findById(userId)
+    public void removeFromWishlist(String username, Long productionId, Long samplePackId) {
+        UserEntity user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found."));
         WishlistEntity wishlist = user.getWishlist();
 
@@ -77,7 +78,28 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public List<CartItemsDto> getAllWishlist(String username) {
-        return null;
+    public List<CartItemsDto> getAllWishlistItemsByUsername(String username) {
+        WishlistEntity wishlist = userRepository.findByUsername(username)
+                .map(user -> wishlistRepository.findByUserId(user.getId()))
+                .orElseThrow(() -> new RuntimeException("Wishlist not found for username: " + username))
+                .orElseThrow(() -> new RuntimeException("Wishlist not found for user ID"));
+
+        List<CartItemsDto> itemsDto = new ArrayList<>();
+
+        // Map productions to CartItemsDto
+        List<CartItemsDto> productionItems = wishlist.getProductions().stream()
+                .map(prod -> new CartItemsDto(prod.getId(), prod.getTitle(), prod.getCoverImage(), 24.95, "Production", prod.getLicenseType().toString()))
+                .collect(Collectors.toList());
+
+        // Map sample packs to CartItemsDto
+        List<CartItemsDto> samplePackItems = wishlist.getSamplePacks().stream()
+                .map(sp -> new CartItemsDto(sp.getId(), sp.getTitle(), sp.getCoverImageUrl(), sp.getPrice(), "SamplePack", null))
+                .collect(Collectors.toList());
+
+        // Combine both lists
+        itemsDto.addAll(productionItems);
+        itemsDto.addAll(samplePackItems);
+
+        return itemsDto;
     }
 }

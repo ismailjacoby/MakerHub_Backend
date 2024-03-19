@@ -26,6 +26,9 @@ public class ShoppingCartController {
             @RequestParam boolean isProduction,
             @RequestParam LicenseType licenseType) {
         try {
+            if (isProduction && licenseType == null) {
+                throw new IllegalArgumentException("License type is required for production items.");
+            }
             shoppingCartService.addToCart(username, itemId, isProduction, licenseType);
             return new ResponseEntity<>("Item added to cart successfully", HttpStatus.OK);
         } catch (IllegalArgumentException e) {
@@ -49,8 +52,8 @@ public class ShoppingCartController {
         }
     }
 
-    @GetMapping("/cart/items/{username}")
-    public ResponseEntity<List<CartItemsDto>> getCartItems(@PathVariable String username) {
+    @GetMapping("/cart/items")
+    public ResponseEntity<List<CartItemsDto>> getCartItems(String username) {
         try {
             List<CartItemsDto> items = shoppingCartService.getAllCartItems(username);
             return new ResponseEntity<>(items, HttpStatus.OK);
