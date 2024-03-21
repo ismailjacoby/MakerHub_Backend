@@ -35,11 +35,12 @@ public class ProductionController {
             @RequestParam("bpm") int bpm,
             @RequestParam("releaseDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate releaseDate,
             @RequestParam("genre") String genre,
+            @RequestParam(value = "stripePriceId", required = false) String stripePriceId,
             @RequestParam("coverImage") MultipartFile coverImage,
             @RequestParam("audioMp3") MultipartFile audioMp3,
             @RequestParam(value = "audioWav", required = false) MultipartFile audioWav,
             @RequestParam(value = "audioZip", required = false) MultipartFile audioZip){
-        productionService.uploadProduction(title, bpm, releaseDate, genre, coverImage, audioMp3, audioWav, audioZip);
+        productionService.uploadProduction(title, bpm, releaseDate, genre, stripePriceId, coverImage, audioMp3, audioWav, audioZip);
         return ResponseEntity.ok().build();
     }
 

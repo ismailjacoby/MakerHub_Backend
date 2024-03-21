@@ -35,6 +35,7 @@ public class ProductionEntity {
     private String audioWav;
     @Column(name = "audio_zip")
     private String audioZip;
+    private String stripePriceId;
     private MusicGenre genre;
     @Column(name="license_type")
     private LicenseType licenseType;

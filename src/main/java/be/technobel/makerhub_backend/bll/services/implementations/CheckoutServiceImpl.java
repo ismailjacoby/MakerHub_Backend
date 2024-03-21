@@ -40,7 +40,6 @@ public class CheckoutServiceImpl implements CheckoutService {
             throw new IllegalArgumentException("Shopping cart is empty");
         }
 
-        // Create a new OrderEntity
         OrderEntity order = new OrderEntity();
         order.setUser(user);
         order.setOrderDate(LocalDate.now());
@@ -48,7 +47,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         order.setPaymentStatus(PaymentStatus.PAID);
         order.setItems(new ArrayList<>());
 
-        // Transfer CartItemEntities to OrderEntity
+        // Transfers CartItemEntities to OrderEntity
         for (CartItemEntity item : cart.getItems()) {
             item.setOrder(order);
             item.setShoppingCart(null);

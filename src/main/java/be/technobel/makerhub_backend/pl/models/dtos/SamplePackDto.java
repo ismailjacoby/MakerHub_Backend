@@ -8,6 +8,7 @@ public record SamplePackDto(
        String title,
        String description,
        double price,
+       String stripePriceId,
        String coverImageUrl,
        String audioUrl
 ) {
@@ -18,6 +19,7 @@ public record SamplePackDto(
                 entity.getTitle(),
                 entity.getDescription(),
                 entity.getPrice(),
+                entity.getStripePriceId(),
                 entity.getCoverImageUrl(),
                 entity.getAudioUrl());
     }

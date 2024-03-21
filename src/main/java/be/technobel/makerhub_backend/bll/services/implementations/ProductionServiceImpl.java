@@ -32,7 +32,7 @@ public class ProductionServiceImpl implements ProductionService {
     }
 
     @Override
-    public void uploadProduction(String title, int bpm, LocalDate releaseDate, String genre, MultipartFile coverImage, MultipartFile audioMp3, MultipartFile audioWav, MultipartFile audioZip){
+    public void uploadProduction(String title, int bpm, LocalDate releaseDate, String genre,String stripePriceId, MultipartFile coverImage, MultipartFile audioMp3, MultipartFile audioWav, MultipartFile audioZip){
         ProductionEntity production = new ProductionEntity();
 
         production.setTitle(title);
@@ -40,6 +40,8 @@ public class ProductionServiceImpl implements ProductionService {
         production.setReleaseDate(releaseDate);
         production.setGenre(MusicGenre.valueOf(genre));
         production.setAvailable(true);
+        production.setStripePriceId(stripePriceId);
+
 
 
         if (!audioMp3.isEmpty()) {
@@ -78,6 +80,7 @@ public class ProductionServiceImpl implements ProductionService {
         savedProduction.setAudioZip(String.valueOf(productionForm.getAudioZip()));
         savedProduction.setCoverImage(String.valueOf(productionForm.getCoverImage()));
         savedProduction.setGenre(productionForm.getGenre());
+        savedProduction.setStripePriceId(productionForm.getStripePriceId());
 
         productionRepository.save(savedProduction);
     }

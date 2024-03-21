@@ -101,9 +101,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                         dto.setCoverImage(item.getProduction().getCoverImage());
                         dto.setItemType("Production");
                         dto.setLicenseType(item.getLicenseType().toString());
+                        dto.setStripePriceId(item.getProduction().getStripePriceId());
                     } else if (item.getSamplePack() != null) {
                         dto.setTitle(item.getSamplePack().getTitle());
                         dto.setCoverImage(item.getSamplePack().getCoverImageUrl());
+                        dto.setStripePriceId(item.getSamplePack().getStripePriceId());
                         dto.setItemType("Sample Pack");
                     }
                     return dto;

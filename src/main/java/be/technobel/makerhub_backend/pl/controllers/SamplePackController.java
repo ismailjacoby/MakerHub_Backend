@@ -32,9 +32,10 @@ public class SamplePackController {
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("price") double price,
+            @RequestParam(value = "stripePriceId", required = false) String stripePriceId,
             @RequestParam("coverImage") MultipartFile coverImage,
             @RequestParam("audioUrl") MultipartFile audioUrl) {
-        samplePackService.uploadProduction(title, description, price, coverImage, audioUrl);
+        samplePackService.uploadProduction(title, description, price, stripePriceId,coverImage, audioUrl);
         return ResponseEntity.ok().build();
     }
 

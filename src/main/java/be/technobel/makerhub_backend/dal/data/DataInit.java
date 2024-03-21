@@ -259,6 +259,7 @@ public class DataInit implements InitializingBean {
         latin.setCoverImage("https://hybridvision.s3.amazonaws.com/cb8b2cf1-ff66-41e5-a5a7-14abe27af9ad.png");
         latin.setReleaseDate(LocalDate.now());
         latin.setGenre(MusicGenre.LATIN);
+        latin.setStripePriceId("price_1OwhRNIOjZy9IHl84IPa0q7N");
         latin.setDuration(67);
         latin.setAvailable(true);
         productionRepository.save(latin);
@@ -272,6 +273,7 @@ public class DataInit implements InitializingBean {
         lies.setCoverImage("https://hybridvision.s3.amazonaws.com/2ea0f1f3-31dd-47d5-a497-4f6d6676a631.png");
         lies.setReleaseDate(LocalDate.now());
         lies.setGenre(MusicGenre.RNB);
+        lies.setStripePriceId("price_1OwhcTIOjZy9IHl8q5nVYdDf");
         lies.setDuration(136);
         lies.setAvailable(true);
         productionRepository.save(lies);
@@ -299,6 +301,7 @@ public class DataInit implements InitializingBean {
         chill.setCoverImage("https://hybridvision.s3.amazonaws.com/7a7155d8-4aa3-4ad3-9e8f-c4e6bfe7cf3e.png");
         chill.setReleaseDate(LocalDate.now());
         chill.setGenre(MusicGenre.EDM);
+        chill.setStripePriceId("price_1OwhfIIOjZy9IHl87H7o7qU3");
         chill.setDuration(89);
         chill.setAvailable(true);
         productionRepository.save(chill);
@@ -312,6 +315,7 @@ public class DataInit implements InitializingBean {
         drill.setCoverImage("https://hybridvision.s3.amazonaws.com/4cd095a2-a554-475d-b250-ce161e1bd0ba.png");
         drill.setReleaseDate(LocalDate.now());
         drill.setGenre(MusicGenre.DRILL);
+        drill.setStripePriceId("price_1OwhfrIOjZy9IHl8LBlq5gRr");
         drill.setDuration(29);
         drill.setAvailable(true);
         productionRepository.save(drill);
@@ -325,6 +329,7 @@ public class DataInit implements InitializingBean {
         dancehall.setCoverImage("https://hybridvision.s3.amazonaws.com/27ddc8cc-63a4-4da4-8666-3e26fe95ef36.png");
         dancehall.setReleaseDate(LocalDate.now());
         dancehall.setGenre(MusicGenre.AFROBEATS);
+        dancehall.setStripePriceId("price_1OwhgTIOjZy9IHl851Hyr0cb");
         dancehall.setDuration(45);
         dancehall.setAvailable(true);
         productionRepository.save(dancehall);
@@ -338,6 +343,7 @@ public class DataInit implements InitializingBean {
         guidance.setCoverImage("https://hybridvision.s3.amazonaws.com/f218f578-1273-4602-b55e-890041d9615b.png");
         guidance.setReleaseDate(LocalDate.now());
         guidance.setGenre(MusicGenre.AFROBEATS);
+        guidance.setStripePriceId("price_1OwhiUIOjZy9IHl8BUBTprIO");
         guidance.setDuration(175);
         guidance.setAvailable(true);
         productionRepository.save(guidance);
@@ -351,6 +357,7 @@ public class DataInit implements InitializingBean {
         leanOnMe.setCoverImage("https://hybridvision.s3.amazonaws.com/10c84393-6423-44aa-99cf-d91c870ee067.png");
         leanOnMe.setReleaseDate(LocalDate.now());
         leanOnMe.setGenre(MusicGenre.AFROBEATS);
+        leanOnMe.setStripePriceId("price_1OwhiyIOjZy9IHl8t0s2wSnt");
         leanOnMe.setDuration(172);
         leanOnMe.setAvailable(true);
         productionRepository.save(leanOnMe);
@@ -364,6 +371,7 @@ public class DataInit implements InitializingBean {
         flashback.setCoverImage("https://hybridvision.s3.amazonaws.com/118d8eb7-73ad-430f-b9a2-e75543db5c93.png");
         flashback.setReleaseDate(LocalDate.now());
         flashback.setGenre(MusicGenre.AFROBEATS);
+        flashback.setStripePriceId("price_1OwhjLIOjZy9IHl80DtGYII6");
         flashback.setDuration(162);
         flashback.setAvailable(true);
         productionRepository.save(flashback);
@@ -376,6 +384,7 @@ public class DataInit implements InitializingBean {
         pack1.setPrice(24.95);
         pack1.setCoverImageUrl("https://hybridvision.s3.amazonaws.com/b4ede81e-5fcb-40d4-8723-677d7ff5ec9b.jpg");
         pack1.setAudioUrl("https://hybridvision.s3.amazonaws.com/09060024-ca61-4466-8586-8ccc99ecdfce.mp3");
+        pack1.setStripePriceId("price_1OwhKyIOjZy9IHl87Os9JcdA");
         samplePackRepository.save(pack1);
 
         // Sample Pack 2
@@ -386,6 +395,7 @@ public class DataInit implements InitializingBean {
         pack2.setPrice(24.95);
         pack2.setCoverImageUrl("https://hybridvision.s3.amazonaws.com/8e978c32-2da5-47bf-aa91-56469b164ef6.jpg");
         pack2.setAudioUrl("https://hybridvision.s3.amazonaws.com/e9156116-40a0-4f86-9367-2dbc5cc41c68.mp3");
+        pack2.setStripePriceId("price_1OwhLVIOjZy9IHl8kqPWUu5S");
         samplePackRepository.save(pack2);
 
         // Sample Pack 3
@@ -396,6 +406,7 @@ public class DataInit implements InitializingBean {
         pack3.setPrice(24.95);
         pack3.setCoverImageUrl("https://hybridvision.s3.amazonaws.com/c9bee787-e423-48c0-8c8e-90035d567cc0.png");
         pack3.setAudioUrl("https://hybridvision.s3.amazonaws.com/fc01ca6d-dc51-46ff-a016-27aaaef274b5.mp3");
+        pack3.setStripePriceId("price_1OwhLyIOjZy9IHl8lUQrHVON");
         samplePackRepository.save(pack3);
 
         // Sample Pack 4
@@ -406,6 +417,7 @@ public class DataInit implements InitializingBean {
         pack4.setPrice(24.95);
         pack4.setCoverImageUrl("https://hybridvision.s3.amazonaws.com/5d81edc2-1764-4f10-9e93-9d796f4ed281.jpg");
         pack4.setAudioUrl("https://hybridvision.s3.amazonaws.com/6d068ab5-3370-4338-9cfa-b53129b3100a.mp3");
+        pack4.setStripePriceId("price_1OwhMSIOjZy9IHl84VyJnhRa");
         samplePackRepository.save(pack4);
 
 

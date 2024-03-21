@@ -88,12 +88,12 @@ public class WishlistServiceImpl implements WishlistService {
 
         // Map productions to CartItemsDto
         List<CartItemsDto> productionItems = wishlist.getProductions().stream()
-                .map(prod -> new CartItemsDto(prod.getId(), prod.getTitle(), prod.getCoverImage(), 24.95, "Production", prod.getLicenseType().toString()))
+                .map(prod -> new CartItemsDto(prod.getId(), prod.getTitle(), prod.getCoverImage(), 24.95, "Production", prod.getLicenseType().toString(), prod.getStripePriceId()))
                 .collect(Collectors.toList());
 
         // Map sample packs to CartItemsDto
         List<CartItemsDto> samplePackItems = wishlist.getSamplePacks().stream()
-                .map(sp -> new CartItemsDto(sp.getId(), sp.getTitle(), sp.getCoverImageUrl(), sp.getPrice(), "SamplePack", null))
+                .map(sp -> new CartItemsDto(sp.getId(), sp.getTitle(), sp.getCoverImageUrl(), sp.getPrice(), "SamplePack", null, sp.getStripePriceId()))
                 .collect(Collectors.toList());
 
         // Combine both lists

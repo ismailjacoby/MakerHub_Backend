@@ -14,6 +14,7 @@ public class CartItemsDto {
     private double price;
     private String itemType;
     private String licenseType;
+    private String stripePriceId;
 
 
 }

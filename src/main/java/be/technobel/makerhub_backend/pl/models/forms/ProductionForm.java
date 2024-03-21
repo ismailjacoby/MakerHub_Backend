@@ -26,6 +26,7 @@ public class ProductionForm {
     @Positive(message = "Number must be positive")
     private int bpm;
     private boolean available;
+    private String stripePriceId;
     @FutureOrPresent
     private LocalDate releaseDate;
     @NotBlank(message = "Cover Image is required")

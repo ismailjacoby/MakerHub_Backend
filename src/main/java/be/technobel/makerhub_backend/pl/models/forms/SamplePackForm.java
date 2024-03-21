@@ -18,6 +18,7 @@ public class SamplePackForm {
     @NotBlank(message = "Price is required")
     @Positive(message = "Number must be positive")
     private double price;
+    private String stripePriceId;
     @NotBlank(message = "Image is required")
     private String coverImageUrl;
     @NotBlank(message = "Audio File is required")

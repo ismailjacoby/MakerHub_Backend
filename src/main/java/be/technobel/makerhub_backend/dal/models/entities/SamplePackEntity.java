@@ -18,6 +18,7 @@ public class SamplePackEntity {
     private double price;
     private String coverImageUrl;
     private String audioUrl;
+    private String stripePriceId;
 
     @ManyToMany(mappedBy = "samplePacks")
     private List<WishlistEntity> wishlists;

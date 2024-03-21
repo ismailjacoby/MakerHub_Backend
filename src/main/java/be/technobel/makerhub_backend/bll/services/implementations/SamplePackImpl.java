@@ -27,12 +27,13 @@ public class SamplePackImpl implements SamplePackService {
     }
 
     @Override
-    public void uploadProduction(String title, String description, double price, MultipartFile coverImageUrl, MultipartFile audioUrl) {
+    public void uploadProduction(String title, String description, double price, String stripePriceId, MultipartFile coverImageUrl, MultipartFile audioUrl) {
         SamplePackEntity samplePack = new SamplePackEntity();
 
         samplePack.setTitle(title);
         samplePack.setDescription(description);
         samplePack.setPrice(price);
+        samplePack.setStripePriceId(stripePriceId);
 
 
         if (!audioUrl.isEmpty()) {

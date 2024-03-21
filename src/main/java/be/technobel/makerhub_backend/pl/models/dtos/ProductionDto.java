@@ -18,9 +18,10 @@ String coverImage,
 String audioMp3,
 String audioWav,
 String audioZip,
+String stripePriceId,
 MusicGenre genre
 ) {
     public static ProductionDto fromEntity(ProductionEntity p){
-        return new ProductionDto(p.getId(),p.getTitle(),p.getBpm(),p.getDuration(),p.getReleaseDate(),p.getCoverImage(),p.getAudioMp3(),p.getAudioWav(),p.getAudioZip(),p.getGenre());
+        return new ProductionDto(p.getId(),p.getTitle(),p.getBpm(),p.getDuration(),p.getReleaseDate(),p.getCoverImage(),p.getAudioMp3(),p.getAudioWav(),p.getAudioZip(),p.getStripePriceId(),p.getGenre());
     }
 }
