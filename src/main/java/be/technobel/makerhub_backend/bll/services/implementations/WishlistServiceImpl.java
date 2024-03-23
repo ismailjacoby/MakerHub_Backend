@@ -12,6 +12,7 @@ import be.technobel.makerhub_backend.dal.repositories.UserRepository;
 import be.technobel.makerhub_backend.dal.repositories.WishlistRepository;
 import be.technobel.makerhub_backend.pl.models.dtos.CartItemsDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,25 +79,22 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public List<CartItemsDto> getAllWishlistItemsByUsername(String username) {
-        WishlistEntity wishlist = userRepository.findByUsername(username)
-                .map(user -> wishlistRepository.findByUserId(user.getId()))
-                .orElseThrow(() -> new RuntimeException("Wishlist not found for username: " + username))
-                .orElseThrow(() -> new RuntimeException("Wishlist not found for user ID"));
+    public List<CartItemsDto> getAllWishlistItemsByUsername(String username) throws NotFoundException {
+        UserEntity user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException("User not found for username: " + username));
+
+        WishlistEntity wishlist = user.getWishlist();
 
         List<CartItemsDto> itemsDto = new ArrayList<>();
 
-        // Map productions to CartItemsDto
         List<CartItemsDto> productionItems = wishlist.getProductions().stream()
-                .map(prod -> new CartItemsDto(prod.getId(), prod.getTitle(), prod.getCoverImage(), 24.95, "Production", prod.getLicenseType().toString(), prod.getStripePriceId()))
+                .map(prod -> new CartItemsDto(prod.getId(), prod.getTitle(), prod.getCoverImage(), 24.95, "Production", null, null))
                 .collect(Collectors.toList());
 
-        // Map sample packs to CartItemsDto
         List<CartItemsDto> samplePackItems = wishlist.getSamplePacks().stream()
                 .map(sp -> new CartItemsDto(sp.getId(), sp.getTitle(), sp.getCoverImageUrl(), sp.getPrice(), "SamplePack", null, sp.getStripePriceId()))
                 .collect(Collectors.toList());
 
-        // Combine both lists
         itemsDto.addAll(productionItems);
         itemsDto.addAll(samplePackItems);
 
