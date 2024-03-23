@@ -1,10 +1,7 @@
 package be.technobel.makerhub_backend.dal.models.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -25,4 +22,6 @@ public class SamplePackEntity {
 
     @OneToMany(mappedBy = "samplePack", cascade = CascadeType.ALL)
     private List<CartItemEntity> cartItems;
+
+
 }

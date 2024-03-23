@@ -36,15 +36,15 @@ public class EmailSenderService {
     public void sendContactMessage(ContactForm form){
         try{
             MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom("your-verified-email@example.com");
+            MimeMessageHelper helper = new MimeMessageHelper(message, false);
+            helper.setFrom("ismail.jacoby@gmail.com");
             helper.setReplyTo(form.getEmail());
-
-            helper.setTo("ismail.jacoby@gmail.com");
+            helper.setTo("checkmatemonsieur@gmail.com");
             helper.setSubject("Contact Form Submission: " + form.getSubject());
 
             String content = "Message from: " + form.getFirstName() + " " + form.getLastName() +
                     " (" + form.getEmail() + ")\n\n" + form.getMessage();
+            helper.setText(content);
 
             mailSender.send(message);
             System.out.println("Mail sent successfully");
